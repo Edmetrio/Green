@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiposTable extends Migration
+class CreateDestaquesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo', function (Blueprint $table) {
+        Schema::create('destaque', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nome')->unique();
-            $table->string('icon')->nullable();
-            $table->longText('descricao')->nullable();
             $table->string('estado')->default('on');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ class CreateTiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo');
+        Schema::dropIfExists('destaque');
     }
 }

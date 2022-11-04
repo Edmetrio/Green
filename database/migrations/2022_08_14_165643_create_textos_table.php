@@ -16,8 +16,8 @@ class CreateTextosTable extends Migration
         Schema::create('texto', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('propriedade_id')->nullable();
-            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('nome')->nullable();
+            $table->foreign('propriedade_id')->references('id')->on('propriedades')->onDelete('cascade')->onUpdate('cascade');
+            $table->longText('texto')->nullable();
             $table->string('estado')->default('on');
             $table->timestamps();
         });

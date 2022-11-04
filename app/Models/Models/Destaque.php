@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 
-class Texto extends Model
+class Destaque extends Model
 {
     use HasFactory, Uuid;
 
@@ -14,6 +14,6 @@ class Texto extends Model
     public $incrementing = false;
     protected $guarded = [];
 
-    protected $table = 'texto';
-    protected $fillable = ['propriedade_id','texto','estado'];
+    protected $table = 'destaque';
+    protected $fillable = ['nome','estado'];
 }

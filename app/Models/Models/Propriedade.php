@@ -14,8 +14,8 @@ class Propriedade extends Model
     public $incrementing = false;
     protected $guarded = [];
 
-    protected $table = 'propriedade';
-    protected $fillable = ['categoria_id','tipo_id','area_id','distrito_id','estado_id','nome','descricao','icon','preco','estado'];
+    protected $table = 'propriedades';
+    protected $fillable = ['categoria_id','tipo_id','area_id','distrito_id','estado_id','nome','descricao','icon','preco','estado','agente_id','endereco'];
 
     public function categorias()
     {
@@ -40,5 +40,15 @@ class Propriedade extends Model
     public function estados()
     {
         return $this->belongsTo(Estado::class, 'estado_id');
+    }
+
+    public function agentes()
+    {
+        return $this->belongsTo(Agente::class, 'agente_id');
+    }
+
+    public function textos()
+    {
+        return $this->hasMany(Texto::class, 'propriedade_id', 'id');
     }
 }

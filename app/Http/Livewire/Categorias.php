@@ -35,10 +35,12 @@ class Categorias extends Component
 
     public function render()
     {
-        $propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados')->orderBy('created_at', 'desc')->paginate(5);
+        $propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados','agentes')->orderBy('created_at', 'desc')->paginate(5);
         $this->tipo = Tipo::orderBy('created_at', 'desc')->get();
         $this->area = Area::orderBy('created_at', 'desc')->get();
-        return view('livewire.categorias', compact('propriedade'))->layout('layouts.app');
+        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $categoria = Categoria::orderBy('created_at', 'desc')->get();
+        return view('livewire.categorias', compact('propriedade'))->layout('layouts.app', compact('categoria','tipo'));
     }
 
     public function updatedSelectedState($state)

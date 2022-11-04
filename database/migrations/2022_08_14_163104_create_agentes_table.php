@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiposTable extends Migration
+class CreateAgentesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateTiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo', function (Blueprint $table) {
+        Schema::create('agente', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nome')->unique();
+            $table->uuid('distrito_id')->nullable();
+            $table->foreign('distrito_id')->references('id')->on('distrito')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('nome')->unique();
+            $table->string('endereco')->nullable();
+            $table->string('email')->unique();
+            $table->string('contacto')->nullable();
             $table->string('icon')->nullable();
-            $table->longText('descricao')->nullable();
             $table->string('estado')->default('on');
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ class CreateTiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo');
+        Schema::dropIfExists('agente');
     }
 }

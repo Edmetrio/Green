@@ -4,13 +4,14 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Rethouse - Real Estate HTML Template">
     <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
     <meta name="author" content="mardianto - retenvi.com">
-    <title>Green Propriety</title>
+    <title>Green Property Mozambique</title>
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -25,38 +26,40 @@
 
     <link rel="manifest" href="site.webmanifest">
     <!-- favicon.ico in the root directory -->
-    <link rel="apple-touch-icon" href="icon.png">
-    <meta name="theme-color" content="#3454d1">
     <link href="{{ asset('assets/css/stylesbd04.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/font-awesome.min') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {{--     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+</script> --}}
     @livewireStyles
+
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header class="bg-theme-overlay">
-        <!-- <div class="bg-overlay-one"></div> -->
+
+    <header class="header__style-one">
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
                 <a class="navbar-brand" href="homepage-v1.html">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                    <img src="images/logo-blue.png" alt="">
+                    <img src="images/logo-blue-stiky.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="main_nav99">
                     <ul class="navbar-nav mx-auto ">
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('/') }}"> Início </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('/')}}"> Início </a></li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Categoria </a>
                             <ul class="dropdown-menu animate fade-up">
-                                @foreach ($categoria as $c)
-                                    <li><a class="dropdown-item"
-                                            href="{{ Route('categoria', $c->id) }}">{{ $c->nome }}</a>
+                                @foreach($categoria as $c)
+                                <li><a class="dropdown-item" href="{{ Route('categoria',$c->id) }}">{{$c->nome}}</a>
                                 @endforeach
                             </ul>
                         </li>
@@ -68,10 +71,9 @@
                                 Tipo
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                @foreach ($tipo as $t)
-                                    <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}"> {{ $t->nome }}
-                                        </a>
-                                    </li>
+                                @foreach($tipo as $t)
+                                <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}"> {{$t->nome}} </a>
+                                </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -80,13 +82,13 @@
                             <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Staff
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                <li><a class="dropdown-item" href="{{ Route('agente') }}"> Lista </a>
+                                <li><a class="dropdown-item" href="{{ Route('agente')}}"> Lista </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('contacto') }}"> Contacto </a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html"> Sobre nós </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('contacto')}}"> Contacto </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('sobre')}}"> Sobre nós </a></li>
                     </ul>
 
                     <div class="top-search navigation-shadow">
@@ -117,39 +119,131 @@
             </div>
         </nav>
         <!-- END NAVBAR -->
-        <!-- BREADCRUMB -->
-        <section class="section__breadcrumb ">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-8 text-center">
-                        <h2 class="text-capitalize text-white ">Green Propriety</h2>
-                        <ul class="list-inline ">
-                            <li class="list-inline-item">
-                                <a href="#" class="text-white">
-                                    home
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="text-white">
-                                    Propriety
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="text-white">
-                                    Green Propriety
-                                </a>
-                            </li>
+    </header>
+    <!-- END HEADER -->
+    <!-- CAROUSEL -->
 
-                        </ul>
+    <!-- CAROUSEL -->
+    <div class="slider-container">
+        <div class="container-slider-image-full  ">
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                <ol class="carousel-indicators d-none">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active banner-max-height">
+                        <img class="d-block w-100" src="{{ asset('assets/images/bg19.jpg') }}" alt="First slide">
+                        <div class="carousel-caption banner__slide-overlay d-flex h-100">
+                            <div class="carousel__content">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8 col-md-12 col-sm-12 text-center">
+                                            <div class="slider__content-title ">
+                                                <h2 data-animation="fadeInDown" data-delay=".2s"
+                                                    data-duration="1000ms" class="text-white animated fadeInDown">
+                                                    O lugar nº 1 para propriedades comerciais</h2>
+                                                <p data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms"
+                                                    class="text-white animated fadeInUp">
+
+                                                    This is real estate website template based on Bootstrap 4 framework.
+                                                </p>
+                                                <a href="#" data-animation="fadeInUp" data-delay=".6s"
+                                                    data-duration="1000ms"
+                                                    class="btn btn-primary text-uppercase animated fadeInUp">
+                                                    Contacte-nos
+                                                    <i class="fa fa-angle-right arrow-btn "></i></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item banner-max-height">
+                        <img class="d-block w-100" src="{{ asset('assets/images/bg.jpg') }}" alt="Second slide">
+                        <div class="carousel-caption banner__slide-overlay d-flex h-100">
+                            <div class="carousel__content">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8 col-md-12 col-sm-12 text-center">
+                                            <div class="slider__content-title ">
+                                                <h2 data-animation="animated fadeInDown"
+                                                    class="text-white animated fadeInDown">
+                                                    O lugar nº 1 para propriedades comerciais</h2>
+                                                <p data-animation="animated fadeInUp"
+                                                    class="text-white animated fadeInUp ">
+
+                                                    This is real estate website template based on Bootstrap 4 framework.
+                                                </p>
+                                                <a href="#"
+                                                    class="btn btn-primary text-uppercase animated fadeInUp">
+                                                    Contacte-nos
+                                                    <i class="fa fa-angle-right arrow-btn "></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item banner-max-height">
+                        <img class="d-block w-100" src="{{ asset('assets/images/bg15.jpg') }}" alt="Third slide">
+                        <div class="carousel-caption banner__slide-overlay d-flex h-100">
+                            <div class="carousel__content">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8 col-md-12 col-sm-12 text-center">
+                                            <div class="slider__content-title ">
+                                                <h2 data-animation="animated fadeInDown"
+                                                    class="text-white animated fadeInDown">
+                                                    The #1 place for commercial
+                                                    property</h2>
+                                                <p data-animation="animated fadeInUp"
+                                                    class="text-white animated fadeInUp ">
+
+                                                    This is real estate website template based on Bootstrap 4 framework.
+                                                </p>
+                                                <a href="#"
+                                                    class="btn btn-primary text-uppercase animated fadeInUp">
+                                                    contact us
+                                                    <i class="fa fa-angle-right arrow-btn "></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
-        </section>
-        <!-- END BREADCRUMB -->
-    </header>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span> -->
+                <span class="carousel-control-nav-prev">
+                    <i class="fa fa-2x fa-angle-left"></i>
+                </span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span> -->
+                <span class="carousel-control-nav-next">
+                    <i class="fa fa-2x fa-angle-right"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <!-- END CAROUSEL -->
+    <!-- END CAROSUEL -->
     <div class="clearfix"></div>
 
-    <!-- LISTING LIST -->
+
+
     {{ $slot }}
 
 
@@ -259,11 +353,12 @@
     <!-- SCROLL TO TOP -->
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- END SCROLL TO TOP -->
-    <script src="{{ asset('assets/js/index.bundlebd04.js') }}"></script>
+    <script src="{{ asset('assets/js/index.bundlebd04.js?8918068d71def746395d') }}"></script>
     @livewireScripts
+
 </body>
 
 
-<!-- Mirrored from wallsproperty.netlify.app/listing-style-v1.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 11:59:04 GMT -->
+<!-- Mirrored from wallsproperty.netlify.app/homepage-v5.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 11:58:17 GMT -->
 
 </html>

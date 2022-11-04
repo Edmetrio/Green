@@ -13,7 +13,7 @@ class CreatePropriedadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('propriedade', function (Blueprint $table) {
+        Schema::create('propriedades', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categoria')->onDelete('cascade')->onUpdate('cascade');
@@ -25,7 +25,10 @@ class CreatePropriedadesTable extends Migration
             $table->foreign('distrito_id')->references('id')->on('distrito')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('estado_id')->nullable();
             $table->foreign('estado_id')->references('id')->on('estado')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('agente_id')->nullable();
+            $table->foreign('agente_id')->references('id')->on('agente')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome')->nullable();
+            $table->string('endereco')->nullable();
             $table->string('descricao')->nullable();
             $table->string('icon')->nullable();
             $table->string('preco')->nullable();
@@ -41,6 +44,6 @@ class CreatePropriedadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('propriedade');
+        Schema::dropIfExists('propriedades');
     }
 }
