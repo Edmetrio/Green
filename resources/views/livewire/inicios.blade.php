@@ -120,13 +120,19 @@
                                 </div>
                                 <div class="card__image-body">
                                     <span class="badge badge-primary text-capitalize mb-2">{{ $p->tipos->nome }}</span>
-                                    <h6 class="text-capitalize">
+                                    <h6 style="max-width: 45ch;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;" class="text-capitalize">
                                         <a href="{{ Route('detalhe', $p->id) }}">
                                             {{ $p->nome }}
                                         </a>
                                     </h6>
 
-                                    <p class="text-capitalize">
+                                    <p style="max-width: 45ch;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;" class="text-capitalize">
                                         <i class="fa fa-map-marker"></i>
                                         Av. Salvador Allende, nº. 42, {{ $p->distritos->nome }}
                                     </p>
@@ -138,7 +144,7 @@
                                     </figure>
                                     <ul class="list-inline my-auto">
                                         <li class="list-inline-item pt-2">
-                                            <a href="{{ Route('detalhe', $p->id) }}">
+                                            <a href="{{ Route('agenteitem', $p->agentes->id) }}">
                                                 {{ $p->agentes->nome }}
                                             </a>
 
@@ -148,7 +154,7 @@
                                     <ul class="list-inline my-auto ml-auto">
                                         <li class="list-inline-item ">
 
-                                            <h6>{{ $p->preco }},00MT</h6>
+                                            <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
                                         </li>
 
                                     </ul>
@@ -184,15 +190,6 @@
                                         wire:click.prevent="edit('{{ $p->id }}')">{{ $p->nome }}</a></li>
                             @endforeach
                         </ul>
-                        {{--  <div class="form-group">
-                        <label for="exampleFormControlSelect1">Example select</label>
-                        <select wire:model="selectedTipo" class="form-control" id="exampleFormControlSelect1">
-                            <option data-display="All Categories">Todos Tipos</option>
-                            @foreach ($tipo as $t)
-                                <option value="{{ $t->id }}">{{ $t->nome }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     </div>
                     <div class="container">
                         <div class="row">
@@ -216,7 +213,10 @@
                                             <div class="card__image-body">
                                                 <span
                                                     class="badge badge-primary text-capitalize mb-2">{{ $p->tipos->nome }}</span>
-                                                <h6 class="text-capitalize">
+                                                <h6 style="max-width: 45ch;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;" class="text-capitalize">
                                                     <a href="{{ Route('detalhe', $p->id) }}">
                                                         {{ $p->nome }}
                                                     </a>
@@ -237,14 +237,14 @@
                                                 </figure>
                                                 <ul class="list-inline my-auto">
                                                     <li class="list-inline-item ">
-                                                        <a href="">
+                                                        <a href="{{ Route('agenteitem', $p->agentes->id)}}">
                                                             {{ $p->agentes->nome }}
                                                         </a>
                                                     </li>
                                                 </ul>
                                                 <ul class="list-inline my-auto ml-auto">
                                                     <li class="list-inline-item">
-                                                        <h6>{{ $p->preco }},00MZN</h6>
+                                                        <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -303,8 +303,7 @@
                                                 </ul>
                                                 <ul class="list-inline my-auto ml-auto">
                                                     <li class="list-inline-item">
-
-                                                        <h6>{{ $p->preco }},00MT</h6>
+                                                        <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
                                                     </li>
 
                                                 </ul>
@@ -326,7 +325,7 @@
                             <h2 class="text-uppercase text-white">QUER VENDER OU ALUGAR SEU IMÓVEL?</h2>
                             <p class="text-capitalize text-white">Ajudaremos Você A Crescer Sua Carreira E Crescimento,
                                 Entre Em Contato Com A Equipe Imobiliária Da Parede E Obtenha Esta Oferta Promociona</p>
-                            <a href="#" class="btn btn-primary text-uppercase ">Contacte-nos
+                            <a href="{{ Route('contacto') }}" class="btn btn-primary text-uppercase ">Contacte-nos
                                 <i class="fa fa-angle-right ml-3 arrow-btn "></i></a>
                         </div>
                     </div>
@@ -372,7 +371,7 @@
                                     </ul>
                                     <ul class="list-inline my-auto ml-auto">
                                         <li class="list-inline-item ">
-                                            <a href="blog-single.html" class="btn btn-sm btn-primary "><small
+                                            <a href="{{ Route('noticiaitem', $n->id)}}" class="btn btn-sm btn-primary "><small
                                                     class="text-white ">Ler Mais<i
                                                         class="fa fa-angle-right ml-1"></i></small></a>
                                         </li>
@@ -405,9 +404,9 @@
                                                     @include('livewire.inicio.filtro')
                                                 @endforeach
                                             @elseif($ModeDistritos === true)
-                                            @foreach ($dt as $p)
-                                                @include('livewire.inicio.filtro')
-                                            @endforeach
+                                                @foreach ($dt as $p)
+                                                    @include('livewire.inicio.filtro')
+                                                @endforeach
                                             @endif
                                         </div>
                                     </div>

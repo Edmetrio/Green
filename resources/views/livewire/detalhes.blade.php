@@ -36,7 +36,14 @@
     <div class="slider__property bg-light">
 
         <div class="slider__property-carousel-opacity owl-carousel owl-theme">
+            @foreach($propriedade->fotos as $p)
             <div class="item">
+                <a href="#">
+                    <img src="{{ asset('storage') }}/{{ $p->icon }}" alt="" class="img-fluid">
+                </a>
+            </div>
+            @endforeach
+            {{-- <div class="item">
                 <a href="#">
                     <img src="{{ asset('storage') }}/{{ $propriedade->icon }}" alt="" class="img-fluid">
                 </a>
@@ -45,12 +52,7 @@
                 <a href="#">
                     <img src="{{ asset('storage') }}/{{ $propriedade->icon }}" alt="" class="img-fluid">
                 </a>
-            </div>
-            <div class="item">
-                <a href="#">
-                    <img src="{{ asset('storage') }}/{{ $propriedade->icon }}" alt="" class="img-fluid">
-                </a>
-            </div>
+            </div> --}}
 
 
         </div>

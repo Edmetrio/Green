@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFotosTable extends Migration
+class CreateSlidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('foto', function (Blueprint $table) {
+        Schema::create('slider', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('propriedade_id')->nullable();
-            $table->foreign('propriedade_id')->references('id')->on('propriedades')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('nome')->unique();
+            $table->string('descricao')->nullable();
             $table->string('icon')->nullable();
             $table->string('estado')->default('on');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foto');
+        Schema::dropIfExists('slider');
     }
 }

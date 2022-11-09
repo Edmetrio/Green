@@ -6,7 +6,7 @@
                     <h3 class="title-3"></h3>
                     <ul>
                         <li><a href="">Início</a></li>
-                        <li>Tipo</li>
+                        <li>Slider</li>
                     </ul>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb" style="margin: 2%">
                         <div class="pull-left">
-                            <h2>Adicionar </h2>
+                            <h2>Adicionar Tipo</h2>
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('/') }}"> Voltar</a>
@@ -57,16 +57,29 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Descrição:</label>
+                                <textarea class="form-control" wire:model="descricao" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                @error('descricao')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <strong>Imagem:</strong>
-                                <input type="file" name="icon" class="form-control" placeholder="icon" wire:model="icon">
-                                @if($icon)
-                                    <img src="{{$icon->temporaryUrl()}}" style="width: 200px; height: 200px;" />
+                                <input type="file" name="new_icon" class="form-control" placeholder="icon" wire:model="new_icon">
+                                @if($new_icon)
+                                <img src="{{$new_icon->temporaryUrl()}}" style="width: 200px; height: 200px;" />
+                                @else
+                                <img src="{{ asset('storage')}}/{{$old_icon}}" style="width: 200px; height: 200px;" />
                                 @endif
+                                
                                 @error('icon') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 mb-4">
-                            <button wire:click.prevent="store()" class="btn btn-primary">Adicionar</button>
+                            <button wire:click.prevent="update()" class="btn btn-dark">Actualizar</button>
+                            <button wire:click.prevent="cancel()" class="btn btn-danger">Cancelar</button>
                         </div>
                     </div>
                 </form>

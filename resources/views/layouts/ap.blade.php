@@ -44,9 +44,9 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
-                <a class="navbar-brand" href="homepage-v1.html">
-                    <img src="images/logo-blue.png" alt="">
-                    <img src="images/logo-blue-stiky.png" alt="">
+                <a class="navbar-brand" href="{{ Route('/')}}">
+                    <img src="{{asset('assets/images/logo.png')}}" alt="">
+                    <img src="{{asset('assets/images/logo.png')}}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
                     <span class="navbar-toggler-icon"></span>
@@ -143,13 +143,13 @@
                                             <div class="slider__content-title ">
                                                 <h2 data-animation="fadeInDown" data-delay=".2s"
                                                     data-duration="1000ms" class="text-white animated fadeInDown">
-                                                    O lugar nº 1 para propriedades comerciais</h2>
+                                                    O lugar nº 1 para Business Center</h2>
                                                 <p data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms"
                                                     class="text-white animated fadeInUp">
 
-                                                    This is real estate website template based on Bootstrap 4 framework.
+                                                    Encontre melhores Apartamento de Moçambique.
                                                 </p>
-                                                <a href="#" data-animation="fadeInUp" data-delay=".6s"
+                                                <a href="{{ Route('contacto')}}" data-animation="fadeInUp" data-delay=".6s"
                                                     data-duration="1000ms"
                                                     class="btn btn-primary text-uppercase animated fadeInUp">
                                                     Contacte-nos
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item banner-max-height">
+                   {{--  <div class="carousel-item banner-max-height">
                         <img class="d-block w-100" src="{{ asset('assets/images/bg.jpg') }}" alt="Second slide">
                         <div class="carousel-caption banner__slide-overlay d-flex h-100">
                             <div class="carousel__content">
@@ -178,7 +178,7 @@
 
                                                     This is real estate website template based on Bootstrap 4 framework.
                                                 </p>
-                                                <a href="#"
+                                                <a href="{{ Route('contacto')}}"
                                                     class="btn btn-primary text-uppercase animated fadeInUp">
                                                     Contacte-nos
                                                     <i class="fa fa-angle-right arrow-btn "></i></a>
@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="carousel-item banner-max-height">
                         <img class="d-block w-100" src="{{ asset('assets/images/bg15.jpg') }}" alt="Third slide">
                         <div class="carousel-caption banner__slide-overlay d-flex h-100">
@@ -199,16 +199,15 @@
                                             <div class="slider__content-title ">
                                                 <h2 data-animation="animated fadeInDown"
                                                     class="text-white animated fadeInDown">
-                                                    The #1 place for commercial
-                                                    property</h2>
+                                                    O lugar nº 1 para Apartamento</h2>
                                                 <p data-animation="animated fadeInUp"
                                                     class="text-white animated fadeInUp ">
 
-                                                    This is real estate website template based on Bootstrap 4 framework.
+                                                    Encontre melhores Apartamento de Moçambique
                                                 </p>
-                                                <a href="#"
+                                                <a href="{{ Route('contacto')}}"
                                                     class="btn btn-primary text-uppercase animated fadeInUp">
-                                                    contact us
+                                                    Contacte-nos
                                                     <i class="fa fa-angle-right arrow-btn "></i></a>
                                             </div>
                                         </div>
@@ -247,6 +246,7 @@
     {{ $slot }}
 
 
+
     <footer>
         <div class="wrapper__footer bg-theme-footer">
             <div class="container">
@@ -283,12 +283,11 @@
                             <h4 class="footer-title">Links Rápidos</h4>
                             <div class="link__category-two-column">
                                 <ul class="list-unstyled ">
+                                    @foreach($tipo as $t)
                                     <li class="list-inline-item">
-                                        <a href="#">Categoria</a>
+                                        <a href="{{ Route('item', $t->id)}}">{{$t->nome}}</a>
                                     </li>
-                                    <li class="list-inline-item">
-                                        <a href="{{ Route('agente')}}">Staff</a>
-                                    </li>
+                                    @endforeach
                                     <li class="list-inline-item">
                                         <a href="{{ Route('contacto')}}">Contacto</a>
                                     </li>
@@ -323,7 +322,7 @@
                                     por favor preencha o formulário abaixo</p>
                                 <div class="mt-3">
                                     <input type="text" class="form-control mb-2" placeholder="Digite o seu e-mail">
-                                    <button class="btn btn-primary btn-block text-capitalize" type="button">subscribe
+                                    <button class="btn btn-primary btn-block text-capitalize" type="button">Subscrever
                                     </button>
                                 </div>
                             </div>

@@ -16,7 +16,10 @@
         <div class="card__image-body">
             <span class="badge badge-primary text-capitalize mb-2">
                 {{ $p->categorias->nome }}</span>
-            <h6 class="text-capitalize">
+            <h6 style="max-width: 45ch;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;" class="text-capitalize">
                 {{ $p->nome }}
             </h6>
 
@@ -43,7 +46,7 @@
             </ul>
             <ul class="list-inline my-auto ml-auto">
                 <li class="list-inline-item">
-                    <h6>{{ $p->preco }},00MT</h6>
+                    <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
                 </li>
 
             </ul>

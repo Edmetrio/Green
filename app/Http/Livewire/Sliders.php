@@ -2,28 +2,33 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Model\Slider;
+use App\Models\Models\Categoria;
+use App\Models\Models\Slider as ModelsSlider;
 use App\Models\Models\Tipo;
-use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\File;
 
-class Tipos extends Component
+class Sliders extends Component
 {
-    public $nome, $icon, $descricao, $tipo_id, $new_icon, $old_icon;
+    public $nome, $icon, $descricao, $new_icon, $old_icon, $slider_id;
     public $updateMode = false;
     use WithFileUploads;
 
     public function render()
     {
-        $this->tipo = Tipo::orderBy('created_at', 'desc')->get();
-        return view('livewire.tipos')->layout('layouts.appDash');
+        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $categoria = Categoria::orderBy('created_at', 'desc')->get();
+        $this->slider = ModelsSlider::orderBy('created_at', 'desc')->get();
+        return view('livewire.sliders')->layout('layouts.app', compact('categoria','tipo'));
     }
 
     private function resetInputFields(){
-        $this->nome = '';
-        $this->icon= '';
+        $this->nome= '';
         $this->descricao = '';
-        $this->tipo_id = '';
+        $this->icon = '';
+        $this->slider_id = '';
         $this->old_icon = '';
         $this->new_icon = '';
     }
@@ -32,29 +37,27 @@ class Tipos extends Component
     {
         $validatedDate = $this->validate([
             'nome' => 'required',
-            /* 'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', */
+            'descricao' => 'required',
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $input = $validatedDate;
-        $input['descricao'] = $this->descricao;
-
         if ($this->icon) {
             $input['icon'] = $this->icon->store('files', 'public');
         } else {
             $input['icon'] = '';
         }
      
-
-        Tipo::create($input);
+        ModelsSlider::create($input);
   
-        session()->flash('message', 'Tipo criado com sucesso.');
+        session()->flash('message', 'Slider criado com sucesso.');
   
         $this->resetInputFields();
     }
 
     public function edit($id)
     {
-        $post = Tipo::findOrFail($id);
-        $this->tipo_id = $id;
+        $post = ModelsSlider::findOrFail($id);
+        $this->slider_id = $id;
         $this->nome = $post->nome;
         $this->descricao = $post->descricao;
         $this->old_icon = $post->icon;
@@ -69,9 +72,10 @@ class Tipos extends Component
 
     public function update()
     {
-        $tipo = Tipo::findOrFail($this->tipo_id);
+        $tipo = ModelsSlider::findOrFail($this->slider_id);
         $validatedDate = $this->validate([
             'nome' => 'required',
+            'descricao' => 'required',
         ]);
         
         $input = $validatedDate;
@@ -85,24 +89,25 @@ class Tipos extends Component
         } else {
             $input['icon'] = $this->old_icon;
         }
-        
-        $input['descricao'] = $this->descricao;
 
-        $post = Tipo::find($this->tipo_id);
+        $post = ModelsSlider::find($this->slider_id);
         $post->update($input);
   
         $this->updateMode = false;
   
-        session()->flash('message', 'Tipo actualizado.');
+        session()->flash('message', 'Slider actualizado.');
         $this->resetInputFields();
     }
 
-    
-
-    public function switch($id)
+    public function delete($id)
     {
-        $desaparecido = Tipo::findOrFail($id);
-        $desaparecido->update(['estado' => 'true']);
-        
+        $tipo = ModelsSlider::findOrFail($id);
+        $destination = public_path("storage\\". $tipo->icon);
+        if(File::exists($destination))
+        {
+            File::delete($destination);
+        }
+        ModelsSlider::find($id)->delete();
+        session()->flash('message', 'Slider deletado com sucesso.');
     }
 }

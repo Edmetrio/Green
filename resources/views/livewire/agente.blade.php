@@ -20,10 +20,9 @@
                         </div>
 
                     </div>
-                    <!-- END FORM FILTER -->
-                    <!-- ARCHIVE CATEGORY -->
+
                     <aside class=" wrapper__list__category">
-                        <!-- CATEGORY -->
+
                         <div class="widget widget__archive">
                             <div class="widget__title">
                                 <h5 class="text-dark mb-0 text-center">Categorias de Propriedades</h5>
@@ -68,23 +67,12 @@
                                                     {{$a->email}}</a></li>
                                         </ul>
                                         <p class="mb-0 mt-3">
-                                            <button class="btn btn-social btn-social-o facebook mr-1">
-                                                <i class="fa fa-facebook-f"></i>
-                                            </button>
-                                            <button class="btn btn-social btn-social-o twitter mr-1">
-                                                <i class="fa fa-twitter"></i>
-                                            </button>
-
-                                            <button class="btn btn-social btn-social-o linkedin mr-1">
-                                                <i class="fa fa-linkedin"></i>
-                                            </button>
-                                            <button class="btn btn-social btn-social-o instagram mr-1">
-                                                <i class="fa fa-instagram"></i>
-                                            </button>
-
-                                            <button class="btn btn-social btn-social-o youtube mr-1">
-                                                <i class="fa fa-youtube"></i>
-                                            </button>
+                                                <button class="btn btn-social btn-social-o facebook mr-1">
+                                                    <i class="fa fa-facebook-f"></i>
+                                                </button>
+                                                <button class="btn btn-social btn-social-o instagram mr-1">
+                                                    <i class="fa fa-instagram"></i>
+                                                </button>
                                         </p>
 
                                     </div>

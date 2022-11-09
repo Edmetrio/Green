@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb" style="margin: 2%">
                         <div class="pull-left">
-                            <h2>Adicionar </h2>
+                            <h2>Adicionar Tipo</h2>
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('/') }}"> Voltar</a>
@@ -50,9 +50,13 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Nome:</strong>
-                                <input type="text" name="nome" class="form-control" placeholder="Nome" wire:model="nome">
-                                @error('nome') <span class="text-danger">{{ $message }}</span> @enderror
+                                <strong>Propriedade:</strong>
+                                <select class="form-control" wire:model="propriedade_id">
+                                    <option>Seleccione a Propriedade</option>
+                                    @foreach ($propriedade as $r)
+                                        <option value="{{ $r->id }}">{{ $r->nome }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

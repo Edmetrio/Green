@@ -2,16 +2,20 @@
 
 use App\Http\Controllers\PropriedadeController;
 use App\Http\Livewire\Agente;
+use App\Http\Livewire\AgenteItem;
 use App\Http\Livewire\Agentes;
 use App\Http\Livewire\Buscas;
 use App\Http\Livewire\Categoria;
 use App\Http\Livewire\Categorias;
 use App\Http\Livewire\Contactos;
 use App\Http\Livewire\Detalhes;
+use App\Http\Livewire\Fotos;
 use App\Http\Livewire\Inicios;
 use App\Http\Livewire\Items;
+use App\Http\Livewire\NoticiaItem;
 use App\Http\Livewire\Noticias;
 use App\Http\Livewire\Propriedades;
+use App\Http\Livewire\Sliders;
 use App\Http\Livewire\Sobres;
 use App\Http\Livewire\Tipos;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +30,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/linkstorage', function () {
+    $targetFolder = base_path().'/storage/app/public';
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'].'/storage';
+    symlink($targetFolder, $linkFolder); 
+});
 
 Route::get('/', Inicios::class)->name('/');
 
@@ -44,6 +53,10 @@ Route::get('contacto', Contactos::class)->name('contacto');
 Route::get('agente', Agente::class)->name('agente');
 Route::get('categoria/{id}', Categoria::class)->name('categoria');
 Route::get('sobre', Sobres::class)->name('sobre');
+Route::get('slider', Sliders::class)->name('slider');
+Route::get('agenteitem/{id}', AgenteItem::class)->name('agenteitem');
+Route::get('noticiaitem/{id}', NoticiaItem::class)->name('noticiaitem');
+Route::get('foto', Fotos::class)->name('foto');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -85,7 +85,7 @@
                                             processo de aquisição de imóvel, patrocínio para elaboração de projetos
                                             imobiliários urbanos, promoção imobiliária, reabilitação e manutenção de
                                             imoveis..</p>
-                                        <a href="javascript:void(0)" class="show__more-button ">read more</a>
+                                        <a href="javascript:void(0)" class="show__more-button ">Ler Mais</a>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -101,7 +101,7 @@
                                             e qualificação contínua dos nossos colaboradores, da confiança e da
                                             credibilidade mantida ao longo dos nossos 9 anos de experiência
                                             profissional".</p>
-                                        <a href="javascript:void(0)" class="show__more-button ">read more</a>
+                                        <a href="javascript:void(0)" class="show__more-button ">Ler Mais</a>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

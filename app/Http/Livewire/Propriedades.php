@@ -7,6 +7,8 @@ use App\Models\Models\Area;
 use App\Models\Models\Categoria;
 use App\Models\Models\Distrito;
 use App\Models\Models\Estado;
+use App\Models\Models\Foto;
+use App\Models\Models\Moeda;
 use App\Models\Models\Propriedade;
 use App\Models\Models\Texto;
 use App\Models\Models\Tipo;
@@ -18,7 +20,7 @@ class Propriedades extends Component
 {
     public $updateMode = false;
     use WithFileUploads;
-    public $categoria_id, $tipo_id, $area_id, $distrito_id, $estado_id, $nome, $descricao, $icon, $preco, $propriedade_id, $agente_id, $endereco, $texto, $new_icon, $old_icon;
+    public $categoria_id, $tipo_id, $area_id, $distrito_id, $estado_id, $nome, $descricao, $icon, $preco, $propriedade_id, $agente_id, $endereco, $texto, $new_icon, $old_icon, $moeda_id;
     public $inputs = [];
     public $i = 1;
 
@@ -47,16 +49,20 @@ class Propriedades extends Component
         $this->distrito = Distrito::orderBy('created_at', 'desc')->get();
         $this->estado = Estado::orderBy('created_at', 'desc')->get();
         $this->agente = Agente::orderBy('created_at', 'desc')->get();
+        $this->moeda = Moeda::orderBy('created_at', 'desc')->get();
     }
 
     public function render()
     {
+        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $categoria = Categoria::orderBy('created_at', 'desc')->get();
         $propriedade = Propriedade::with('estados')->orderBy('created_at', 'desc')->get();
-        return view('livewire.propriedades', compact('propriedade'));
+        return view('livewire.propriedades', compact('propriedade'))->layout('layouts.app', compact('categoria','tipo'));
     }
 
     private function resetInputFields(){
         $this->categoria_id = '';
+        $this->moeda_id = '';
         $this->tipo_id= '';
         $this->area_id = '';
         $this->distrito_id = '';
@@ -86,6 +92,7 @@ class Propriedades extends Component
             'distrito_id' => 'required',
             'estado_id' => 'required',
             'preco' => 'required',
+            'moeda_id' => 'required',
             'texto.0' => 'required',
             'texto.*' => 'required',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -113,7 +120,7 @@ class Propriedades extends Component
         }
   
         $this->inputs = [];
-        
+
         session()->flash('message', 'Propriedade criada com sucesso.');
   
         $this->resetInputFields();
@@ -133,6 +140,7 @@ class Propriedades extends Component
         $this->distrito_id = $post->distrito_id;
         $this->estado_id = $post->estado_id;
         $this->preco = $post->preco;
+        $this->moeda_id = $post->moeda_id;
         $this->old_icon = $post->icon;
         $this->updateMode = true;
     }
@@ -157,6 +165,7 @@ class Propriedades extends Component
             'distrito_id' => 'required',
             'estado_id' => 'required',
             'preco' => 'required',
+            'moeda_id' => 'required'
         ]);
         
         $input = $validatedDate;

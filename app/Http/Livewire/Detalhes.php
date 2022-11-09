@@ -13,7 +13,8 @@ class Detalhes extends Component
 
     public function mount($id)
     {
-        $this->propriedade = Propriedade::with('categorias','tipos','areas','distritos.provincias','estados','agentes','textos')->findOrFail($id);
+        $this->propriedade = Propriedade::with('categorias','tipos','areas','distritos.provincias','estados','agentes','textos','fotos')->findOrFail($id);
+        /* dd($this->propriedade); */
         $this->propriedades = Propriedade::with('categorias','tipos','areas','distritos.provincias','estados','agentes')
                                         ->where('tipo_id', $this->propriedade->tipo_id)
                                         ->whereNotIn('id', [$this->propriedade->id])
@@ -26,6 +27,6 @@ class Detalhes extends Component
     {
         $tipo = Tipo::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.detalhes')->layout('layouts.ap', compact('categoria','tipo'));
+        return view('livewire.detalhes')->layout('layouts.app', compact('categoria','tipo'));
     }
 }

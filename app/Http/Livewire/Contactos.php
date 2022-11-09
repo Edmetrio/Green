@@ -24,7 +24,7 @@ class Contactos extends Component
     {
         $tipo = Tipo::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.contactos')->layout('layouts.ap', compact('categoria','tipo'));
+        return view('livewire.contactos')->layout('layouts.app', compact('categoria','tipo'));
     }
 
     public function store()

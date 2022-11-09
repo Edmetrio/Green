@@ -8,6 +8,7 @@ use App\Models\Models\Distrito;
 use App\Models\Models\Noticia;
 use App\Models\Models\Propriedade;
 use App\Models\Models\Provincia;
+use App\Models\Models\Slider;
 use App\Models\Models\Tipo;
 use Livewire\Component;
 use PHPUnit\Framework\Error\Notice;
@@ -30,15 +31,17 @@ class Inicios extends Component
 
     public function render()
     {
-        $propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados')->orderBy('created_at', 'desc')->paginate(5);
+        $propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados','moedas')->orderBy('created_at', 'desc')->paginate(5);
         /* dd($propriedade); */
-        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        /* dd($propriedade); */
+        $tipo = Tipo::orderBy('created_at', 'asc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
         $this->provincias = Provincia::orderBy('created_at', 'desc')->get();
         $this->distrito = Distrito::orderBy('created_at', 'desc')->get();
         $this->noticia = Noticia::with('destaques')->orderBy('created_at', 'desc')->get();
-        /* dd($propriedade); */
-        return view('livewire.inicios', compact('propriedade', 'categoria','tipo'))->layout('layouts.ap', compact('categoria','tipo'));
+        $slider = Slider::orderBy('created_at', 'desc')->get();
+        /* dd($this->slider); */
+        return view('livewire.inicios', compact('propriedade', 'categoria','tipo'))->layout('layouts.ap', compact('categoria','tipo','slider'));
     } 
 
     public function edit($id)

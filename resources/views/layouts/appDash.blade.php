@@ -68,11 +68,11 @@
                                 Tipo
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                @foreach ($tipo as $t)
+                                {{-- @foreach ($tipo as $t)
                                     <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}"> {{ $t->nome }}
                                         </a>
                                     </li>
-                                @endforeach
+                                @endforeach --}}
                             </ul>
                         </li>
 
@@ -184,7 +184,7 @@
                     <!-- END ADDRESS -->
 
                     <!-- QUICK LINKS -->
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="widget__footer">
                             <h4 class="footer-title">Links Rápidos</h4>
                             <div class="link__category-two-column">
@@ -203,7 +203,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-4">
                         <div class="widget__footer">

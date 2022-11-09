@@ -19,7 +19,7 @@
                                             </select>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" data-toggle="pill" href="#pills-tab-one" role="tab"
                                             aria-controls="pills-tab-one" aria-selected="true">
                                             <span class="fa fa-th-list"></span>
@@ -29,7 +29,7 @@
                                         <a class="nav-link active" data-toggle="pill" href="#pills-tab-two"
                                             role="tab" aria-controls="pills-tab-two" aria-selected="false">
                                             <span class="fa fa-th-large"></span></a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
 
 
@@ -77,7 +77,7 @@
                                                             </figure>
                                                             <ul class="list-inline my-auto">
                                                                 <li class="list-inline-item ">
-                                                                    <a href="{{ Route('detalhe', $p->id)}}">
+                                                                    <a href="{{ Route('agenteitem', $p->agentes->id)}}">
                                                                         {{ $p->agentes->nome }}
                                                                     </a>
 
@@ -85,7 +85,7 @@
                                                             </ul>
                                                             <ul class="list-inline my-auto ml-auto">
                                                                 <li class="list-inline-item">
-                                                                    <h6>{{ $p->preco }},00MT</h6>
+                                                                    <h6>{{ number_format($p->preco, 2, ',','.')}} MZN</h6>
                                                                 </li>
 
                                                             </ul>
@@ -106,20 +106,25 @@
                                                                 <div class="ribbon text-uppercase">
                                                                     {{ $p->estados->nome }}></div>
                                                             @endif
+                                                            <a href="{{ Route('detalhe', $p->id)}}">
                                                             <img src="{{ asset('storage') }}/{{ $p->icon }}"
                                                                 alt="" class="img-fluid w100 img-transition">
+                                                            </a>
                                                             <div class="info">{{ $p->tipos->nome }}</div>
                                                         </div>
                                                         <div class="card__image-body">
                                                             <span class="badge badge-primary text-capitalize mb-2">
                                                                 {{ $p->categorias->nome }}</span>
-                                                            <h6 class="text-capitalize">
+                                                            <h6 style="max-width: 50ch;
+                                                            overflow: hidden;
+                                                            text-overflow: ellipsis;
+                                                            white-space: nowrap;" class="text-capitalize">
                                                                 {{ $p->nome }}
                                                             </h6>
 
                                                             <p class="text-capitalize">
                                                                 <i class="fa fa-map-marker"></i>
-                                                                west flaminggo road, {{ $p->distritos->nome }}
+                                                                {{$p->endereco}}, {{ $p->distritos->nome }}
                                                             </p>
                                                         </div>
                                                         <div class="card__image-footer">
@@ -129,7 +134,7 @@
                                                             </figure>
                                                             <ul class="list-inline my-auto">
                                                                 <li class="list-inline-item ">
-                                                                    <a href="#">
+                                                                    <a href="{{ Route('agenteitem', $p->agentes->id)}}">
                                                                         {{ $p->agentes->nome }}
                                                                     </a>
 
@@ -137,7 +142,7 @@
                                                             </ul>
                                                             <ul class="list-inline my-auto ml-auto">
                                                                 <li class="list-inline-item">
-                                                                    <h6>{{ $p->preco }},00MT</h6>
+                                                                    <h6>{{ number_format($p->preco, 2, ',','.')}} MZN</h6>
                                                                 </li>
 
                                                             </ul>

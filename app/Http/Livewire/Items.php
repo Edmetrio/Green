@@ -24,7 +24,7 @@ class Items extends Component
         $this->categoria = Categoria::orderBy('created_at', 'desc')->get();
         $tipo = Tipo::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.items')->layout('layouts.ap', compact('categoria','tipo'));
+        return view('livewire.items')->layout('layouts.app', compact('categoria','tipo'));
     }
     
     public function updatedSelectedTipo($categoria_id)

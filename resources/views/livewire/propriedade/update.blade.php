@@ -126,10 +126,21 @@
                                 <input type="text" name="endereco" class="form-control" placeholder="Endereço" wire:model="endereco">
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-12 col-sm-12 col-md-10">
                             <div class="form-group">
                                 <strong>Preço:</strong>
                                 <input type="text" name="preco" class="form-control" placeholder="Preço" wire:model="preco">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2">
+                            <div class="form-group">
+                                <strong>Moeda:</strong>
+                                <select class="form-control" wire:model="moeda_id">
+                                    <option>Seleccione a Moeda</option>
+                                    @foreach ($moeda as $r)
+                                        <option value="{{ $r->id }}">{{ $r->nome }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

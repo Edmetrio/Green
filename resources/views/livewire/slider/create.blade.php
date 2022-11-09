@@ -6,7 +6,7 @@
                     <h3 class="title-3"></h3>
                     <ul>
                         <li><a href="">Início</a></li>
-                        <li>Tipo</li>
+                        <li>Slider</li>
                     </ul>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb" style="margin: 2%">
                         <div class="pull-left">
-                            <h2>Adicionar </h2>
+                            <h2>Adicionar Tipo</h2>
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('/') }}"> Voltar</a>
@@ -53,6 +53,15 @@
                                 <strong>Nome:</strong>
                                 <input type="text" name="nome" class="form-control" placeholder="Nome" wire:model="nome">
                                 @error('nome') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Descrição:</label>
+                                <textarea class="form-control" wire:model="descricao" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                @error('descricao')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
