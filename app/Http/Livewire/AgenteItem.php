@@ -23,7 +23,7 @@ class AgenteItem extends Component
     }
     public function mount($id)
     {
-        $this->agente = Agente::with('distritos.provincias','propriedades.tipos','propriedades.categorias','propriedades.estados','propriedades.distritos','propriedades.estados')->findOrFail($id);
+        $this->agente = Agente::with('distritos.provincias','propriedades.tipoitems','propriedades.categorias','propriedades.estados','propriedades.distritos','propriedades.estados')->findOrFail($id);
         $this->agentes = Agente::whereNotIn('id', [$id])->get();
     }
 
