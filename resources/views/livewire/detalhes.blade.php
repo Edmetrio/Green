@@ -8,22 +8,20 @@
                         <p> {{ $propriedade->endereco }}, {{ $propriedade->distritos->nome }} -
                             {{ $propriedade->distritos->provincias->nome }}</p>
                     </div>
-                </div>
+                </div> 
                 <div class="col-md-3 col-lg-4">
                     <div class="single__detail-area-price">
-                        <h4 class="text-capitalize text-gray">{{ $propriedade->preco }},00MZN</h4>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#" class="badge badge-primary p-2 rounded"><i
-                                        class="fa fa-exchange"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="badge badge-primary p-2 rounded"><i
-                                        class="fa fa-heart"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="badge badge-primary p-2 rounded"><i
-                                        class="fa fa-print"></i></a>
+                        <h4 class="text-capitalize text-gray">{{ number_format($propriedade->preco, 2, ',', '.') }}
+                            {{ $propriedade->moedas->nome }}</h4>
+                        <ul class="property__detail-info-list list-unstyled">
+                            <li><b>Situação:</b>
+                                @if ($propriedade->estados->nome === 'Disponível')
+                                    <strong style="color: hsl(120, 100%, 53%)"> {{ $propriedade->estados->nome }} </strong>
+                                @elseif($propriedade->estados->nome === 'Indisponível')
+                                    <strong style="color: red">{{ $propriedade->estados->nome }}</strong>
+                                @elseif($propriedade->estados->nome === 'Reservado')
+                                    <strong style="color: hsl(60, 100%, 50%)">{{ $propriedade->estados->nome }}</strong>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -36,25 +34,13 @@
     <div class="slider__property bg-light">
 
         <div class="slider__property-carousel-opacity owl-carousel owl-theme">
-            @foreach($propriedade->fotos as $p)
-            <div class="item">
-                <a href="#">
-                    <img src="{{ asset('storage') }}/{{ $p->icon }}" alt="" class="img-fluid">
-                </a>
-            </div>
+            @foreach ($propriedade->fotos as $p)
+                <div class="item">
+                    <a href="#">
+                        <img src="{{ asset('storage') }}/{{ $p->icon }}" alt="" class="img-fluid">
+                    </a>
+                </div>
             @endforeach
-            {{-- <div class="item">
-                <a href="#">
-                    <img src="{{ asset('storage') }}/{{ $propriedade->icon }}" alt="" class="img-fluid">
-                </a>
-            </div>
-            <div class="item">
-                <a href="#">
-                    <img src="{{ asset('storage') }}/{{ $propriedade->icon }}" alt="" class="img-fluid">
-                </a>
-            </div> --}}
-
-
         </div>
 
     </div>
@@ -71,11 +57,11 @@
                             <div class="single__detail-desc">
                                 <h5 class="text-capitalize detail-heading mt-0">Descrição</h5>
                                 <div class="show__more">
-                                    <p>{{$propriedade->descricao}}.</p>
-                                    @foreach($propriedade->textos as $t)
-                                    <p>
-                                        {{$t->texto}}
-                                    </p>
+                                    <p>{{ $propriedade->descricao }}.</p>
+                                    @foreach ($propriedade->textos as $t)
+                                        <p>
+                                            {{ $t->texto }}
+                                        </p>
                                     @endforeach
                                     <a href="javascript:void(0)" class="show__more-button ">Ler Mais</a>
                                 </div>
@@ -84,47 +70,15 @@
 
                             <!-- PROPERTY DETAILS SPEC -->
                             <div class="single__detail-features">
-                                <h5 class="text-capitalize detail-heading">property details</h5>
+                                <h5 class="text-capitalize detail-heading">Detalhes da Propriedade</h5>
                                 <!-- INFO PROPERTY DETAIL -->
                                 <div class="property__detail-info">
                                     <div class="row">
                                         <div class="col-md-6 col-lg-6">
                                             <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Property ID:</b> RV151</li>
-                                                <li><b>Price:</b> $484,400</li>
-                                                <li><b>Property Size:</b> 1466 Sq Ft</li>
-                                                <li><b>Bedrooms:</b> 4</li>
-                                                <li><b>Bathrooms:</b> 2</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 col-lg-6">
-                                            <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Garage:</b> 1</li>
-                                                <li><b>Garage Size:</b> 458 SqFt</li>
-                                                <li><b>Year Built:</b> 2019-01-09</li>
-                                                <li><b>Property Type:</b> Full Family Home</li>
-                                                <li><b>Property Status:</b> For rent</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <h6 class="text-primary">Additional details</h6>
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6">
-                                            <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Property ID:</b> RV151</li>
-                                                <li><b>Price:</b> $484,400</li>
-                                                <li><b>Property Size:</b> 1466 Sq Ft</li>
-                                                <li><b>Bedrooms:</b> 4</li>
-                                                <li><b>Bathrooms:</b> 2</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 col-lg-6">
-                                            <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Garage:</b> 1</li>
-                                                <li><b>Garage Size:</b> 458 SqFt</li>
-                                                <li><b>Year Built:</b> 2019-01-09</li>
-                                                <li><b>Property Type:</b> Full Family Home</li>
-                                                <li><b>Property Status:</b> For rent</li>
+                                                @foreach ($propriedade->descricaos as $d)
+                                                    <li><b>{{ $d->nome }}: </b> {{ $d->pivot->nome }}</li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
@@ -134,28 +88,6 @@
                             </div>
                             <!-- END PROPERTY DETAILS SPEC -->
                             <div class="clearfix"></div>
-
-
-                            <!-- FEATURES -->
-                            <div class="single__detail-features">
-                                <h5 class="text-capitalize detail-heading">Características</h5>
-                                <ul class="list-unstyled icon-checkbox">
-                                    <li>air conditioning</li>
-                                    <li>swiming pool</li>
-                                    <li>Central Heating</li>
-                                    <li>spa & massage</li>
-                                    <li>pets allow</li>
-
-                                    <li>air conditioning</li>
-                                    <li>gym</li>
-                                    <li>alarm</li>
-
-                                    <li>window Covering</li>
-                                    <li>free wiFi</li>
-                                    <li>car parking </li>
-                                </ul>
-                            </div>
-                            <!-- END FEATURES -->
 
                         </div>
                     </div>
@@ -188,27 +120,69 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="profile__agent__body">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Seu Nome">
+                                @if ($message = Session::get('status'))
+                                    <div>
+                                        <p class="alert alert-success"
+                                            class="table p-field p-col-12 p-md-6 table-striped"
+                                            style="text-align: center;">{{ $message }}</p>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Contacto">
+                                @endif
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <strong>Opss!</strong> Algum problema com seu formulário<br><br>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="E-mail">
+                                @endif
+                                <form>
+                                    <div class="profile__agent__body">
+                                        <div class="form-group">
+                                            <input wire:model="nome" type="text" class="form-control" name="nome"
+                                                placeholder="Nome">
+                                            <span class="text-danger">
+                                                @error('nome')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input wire:model="contacto" type="text" class="form-control"
+                                                placeholder="Contacto">
+                                            <span class="text-danger">
+                                                @error('contacto')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input wire:model="email" type="text" class="form-control"
+                                                placeholder="E-mail">
+                                            <span class="text-danger">
+                                                @error('email')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <textarea wire:model="mensagem" class="form-control required" rows="5" placeholder="Estou Interessado..."></textarea>
+                                            <span class="text-danger">
+                                                @error('mensagem')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="form-group mb-0">
-                                        <textarea class="form-control required" rows="5" required="required" placeholder="Estou Interessado..."></textarea>
+                                    <div class="profile__agent__footer">
+                                        <div class="form-group mb-0">
+                                            <button wire:click.prevent="store()"
+                                                class="btn btn-primary text-capitalize btn-block"> Enviar Mensagem
+                                                <i class="fa fa-paper-plane ml-1"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="profile__agent__footer">
-                                    <div class="form-group mb-0">
-                                        <button class="btn btn-primary text-capitalize btn-block"> Enviar Mensagem <i
-                                                class="fa fa-paper-plane ml-1"></i></button>
-
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -223,55 +197,68 @@
                             Propriedades Similares
                         </h5>
                         <div class="similiar__property-carousel owl-carousel owl-theme">
-                            @foreach($propriedades as $p)
-                            <div class="item">
-                                <!-- ONE -->
-                                <div class="card__image">
-                                    <div class="card__image-header h-250">
-                                        <div class="ribbon text-uppercase"> </div>
-                                        <img src="{{ asset('storage') }}/{{ $p->icon }}" alt=""
-                                            class="img-fluid w100 img-transition">
-                                        <div class="info">{{$p->categorias->nome}}</div>
-                                    </div>
-                                    <div class="card__image-body">
-                                        <span class="badge badge-primary text-capitalize mb-2">{{$p->estados->nome}}</span>
-                                        <h6 class="text-capitalize">
-                                            <a href="#">{{$p->nome}}</a>
-                                        </h6>
+                            @foreach ($propriedades as $p)
+                                <div class="item">
+                                    <!-- ONE -->
+                                    <div class="card__image">
+                                        <div class="card__image-header h-250">
+                                            @if ($p->estados->nome === 'Disponível')
+                                                <div class="ribbon text-uppercase">
+                                                    {{ $p->estados->nome }}</div>
+                                            @elseif($p->estados->nome === 'Indisponível')
+                                                <div class="ribbon text-uppercase" style="background-color: red">
+                                                    {{ $p->estados->nome }}></div>
+                                            @elseif($p->estados->nome === 'Reservado')
+                                                <div class="ribbon text-uppercase" style="background-color: yellow">
+                                                    {{ $p->estados->nome }}></div>
+                                            @endif
+                                            <a href="{{ Route('detalhe', $p->id) }}">
+                                                <img src="{{ asset('storage') }}/{{ $p->icon }}" alt=""
+                                                    class="img-fluid w100 img-transition">
+                                            </a>
+                                            <div class="info">{{ $p->tipoitems->nome }}</div>
+                                        </div>
+                                        <div class="card__image-body">
+                                            <span
+                                                class="badge badge-primary text-capitalize mb-2">{{ $p->categorias->nome }}</span>
+                                            <h6 class="text-capitalize">
+                                                <a href="#">{{ $p->nome }}</a>
+                                            </h6>
 
-                                        <p class="text-capitalize">
-                                            <i class="fa fa-map-marker"></i>
-                                            {{$p->endereco}}, {{$p->distritos->nome}}
-                                        </p>
-                                    </div>
-                                    <div class="card__image-footer">
-                                        <figure>
-                                            <img src="{{ asset('storage') }}/{{ $p->agentes->  icon }}" alt=""
-                                                class="img-fluid rounded-circle">
-                                        </figure>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item pt-2">
-                                                <a href="#">
-                                                    {{$p->agentes->nome}} <br>
-                                                </a>
-                                            </li>
+                                            <p class="text-capitalize">
+                                                <i class="fa fa-map-marker"></i>
+                                                {{ $p->endereco }}, {{ $p->distritos->nome }}
+                                            </p>
+                                        </div>
+                                        <div class="card__image-footer">
+                                            <figure>
+                                                <img src="{{ asset('storage') }}/{{ $p->agentes->icon }}"
+                                                    alt="" class="img-fluid rounded-circle">
+                                            </figure>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item pt-2">
+                                                    <a href="{{ Route('agenteitem', $p->agentes->id) }}">
+                                                        {{ $p->agentes->nome }} <br>
+                                                    </a>
+                                                </li>
 
-                                        </ul>
-                                        <ul class="list-inline ml-auto">
-                                            <li class="list-inline-item pt-1">
-                                                <h6 class="text-primary">{{$p->preco}},00MZN</h6>
-                                            </li>
+                                            </ul>
+                                            <ul class="list-inline ml-auto">
+                                                <li class="list-inline-item pt-1">
+                                                    <h6 class="text-primary">
+                                                        {{ number_format($p->preco, 2, ',', '.') }}
+                                                        {{ $p->moedas->nome }}</h6>
+                                                </li>
 
-                                        </ul>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- END SIMILIAR PROPERTY -->
 
         </div>
     </section>

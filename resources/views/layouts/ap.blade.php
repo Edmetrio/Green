@@ -4,14 +4,15 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Rethouse - Real Estate HTML Template">
-    <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
-    <meta name="author" content="mardianto - retenvi.com">
-    <title>Green Property Mozambique</title>
+    <meta name="description" content="First Tech">
+    <meta name="keywords" content="First Tech, First Education" />
+    <meta name="author" content="Edmétrio - Samuel">
+    <title>Green Propriety Mozambique</title>
+    <link rel="icon" href="{{ asset('assets/images/fav.png') }}">
+
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -44,22 +45,23 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
-                <a class="navbar-brand" href="{{ Route('/')}}">
-                    <img src="{{asset('assets/images/logo.png')}}" alt="">
-                    <img src="{{asset('assets/images/logo.png')}}" alt="">
+                <a class="navbar-brand" href="{{ Route('/') }}">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="main_nav99">
                     <ul class="navbar-nav mx-auto ">
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('/')}}"> Início </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('/') }}"> Início </a></li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Categoria </a>
                             <ul class="dropdown-menu animate fade-up">
-                                @foreach($categoria as $c)
-                                <li><a class="dropdown-item" href="{{ Route('categoria',$c->id) }}">{{$c->nome}}</a>
+                                @foreach ($categoria as $c)
+                                    <li><a class="dropdown-item"
+                                            href="{{ Route('categoria', $c->id) }}">{{ $c->nome }}</a>
                                 @endforeach
                             </ul>
                         </li>
@@ -71,9 +73,10 @@
                                 Tipo
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                @foreach($tipo as $t)
-                                <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}"> {{$t->nome}} </a>
-                                </li>
+                                @foreach ($tipo as $t)
+                                    <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}">
+                                            {{ $t->nome }} </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -82,15 +85,49 @@
                             <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Staff
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                <li><a class="dropdown-item" href="{{ Route('agente')}}"> Lista </a>
+                                <li><a class="dropdown-item" href="{{ Route('agente') }}"> Lista </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('contacto')}}"> Contacto </a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('sobre')}}"> Sobre nós </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('contacto') }}"> Contacto </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Route('sobre') }}"> Sobre nós </a></li>
+                        @auth
+                            <li class="nav-item dropdown">
+                                @foreach ($users as $a)
+                                    @foreach ($a->agentes as $s)
+                                        <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
+                                            {{ $s->nome }} </a>
+                                    @endforeach
+                                @endforeach
+                                <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                    <li><a class="dropdown-item" href="{{ Route('propriedade') }}"> Propriedade </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ Route('detalhes') }}"> Detalhes </a></li>
+                                    <li><a class="dropdown-item" href="{{ Route('foto') }}"> Gerir Fotos </a></li>
+                                    <li><a class="dropdown-item" href="{{ Route('agentes') }}"> Alterar Perfil </a></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="route('logout')"
+                                                onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                                Sair </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endauth
                     </ul>
-
+                    @auth
+                    @else
+                        <ul class="navbar-nav ">
+                            <li>
+                                <a href="{{ Route('login') }}" class="btn btn-primary text-capitalize">
+                                    <i class="fa fa-plus-circle mr-1"></i> Entrar</a>
+                            </li>
+                        </ul>
+                    @endauth
                     <div class="top-search navigation-shadow">
                         <div class="container">
                             <div class="input-group ">
@@ -114,16 +151,13 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Search content bar.// -->
-                </div> <!-- navbar-collapse.// -->
+ 
+                </div> 
             </div>
         </nav>
-        <!-- END NAVBAR -->
-    </header>
-    <!-- END HEADER -->
-    <!-- CAROUSEL -->
 
-    <!-- CAROUSEL -->
+    </header>
+
     <div class="slider-container">
         <div class="container-slider-image-full  ">
             <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
@@ -147,10 +181,10 @@
                                                 <p data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms"
                                                     class="text-white animated fadeInUp">
 
-                                                    Encontre melhores Apartamento de Moçambique.
+                                                    Encontre melhores Business Center de Moçambique.
                                                 </p>
-                                                <a href="{{ Route('contacto')}}" data-animation="fadeInUp" data-delay=".6s"
-                                                    data-duration="1000ms"
+                                                <a href="{{ Route('contacto') }}" data-animation="fadeInUp"
+                                                    data-delay=".6s" data-duration="1000ms"
                                                     class="btn btn-primary text-uppercase animated fadeInUp">
                                                     Contacte-nos
                                                     <i class="fa fa-angle-right arrow-btn "></i></a>
@@ -162,33 +196,7 @@
                             </div>
                         </div>
                     </div>
-                   {{--  <div class="carousel-item banner-max-height">
-                        <img class="d-block w-100" src="{{ asset('assets/images/bg.jpg') }}" alt="Second slide">
-                        <div class="carousel-caption banner__slide-overlay d-flex h-100">
-                            <div class="carousel__content">
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-8 col-md-12 col-sm-12 text-center">
-                                            <div class="slider__content-title ">
-                                                <h2 data-animation="animated fadeInDown"
-                                                    class="text-white animated fadeInDown">
-                                                    O lugar nº 1 para propriedades comerciais</h2>
-                                                <p data-animation="animated fadeInUp"
-                                                    class="text-white animated fadeInUp ">
 
-                                                    This is real estate website template based on Bootstrap 4 framework.
-                                                </p>
-                                                <a href="{{ Route('contacto')}}"
-                                                    class="btn btn-primary text-uppercase animated fadeInUp">
-                                                    Contacte-nos
-                                                    <i class="fa fa-angle-right arrow-btn "></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="carousel-item banner-max-height">
                         <img class="d-block w-100" src="{{ asset('assets/images/bg15.jpg') }}" alt="Third slide">
                         <div class="carousel-caption banner__slide-overlay d-flex h-100">
@@ -199,13 +207,13 @@
                                             <div class="slider__content-title ">
                                                 <h2 data-animation="animated fadeInDown"
                                                     class="text-white animated fadeInDown">
-                                                    O lugar nº 1 para Apartamento</h2>
+                                                    O lugar nº 1 para Flats</h2>
                                                 <p data-animation="animated fadeInUp"
                                                     class="text-white animated fadeInUp ">
 
-                                                    Encontre melhores Apartamento de Moçambique
+                                                    Encontre melhores Flats de Moçambique
                                                 </p>
-                                                <a href="{{ Route('contacto')}}"
+                                                <a href="{{ Route('contacto') }}"
                                                     class="btn btn-primary text-uppercase animated fadeInUp">
                                                     Contacte-nos
                                                     <i class="fa fa-angle-right arrow-btn "></i></a>
@@ -283,16 +291,16 @@
                             <h4 class="footer-title">Links Rápidos</h4>
                             <div class="link__category-two-column">
                                 <ul class="list-unstyled ">
-                                    @foreach($tipo as $t)
-                                    <li class="list-inline-item">
-                                        <a href="{{ Route('item', $t->id)}}">{{$t->nome}}</a>
-                                    </li>
+                                    @foreach ($tipoitem as $t)
+                                        <li class="list-inline-item">
+                                            <a href="{{ Route('item', $t->id) }}">{{ $t->nome }}</a>
+                                        </li>
                                     @endforeach
                                     <li class="list-inline-item">
-                                        <a href="{{ Route('contacto')}}">Contacto</a>
+                                        <a href="{{ Route('contacto') }}">Contacto</a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a href="{{ Route('sobre')}}">Sobre nós</a>
+                                        <a href="{{ Route('sobre') }}">Sobre nós</a>
                                     </li>
                                 </ul>
                             </div>
@@ -313,6 +321,9 @@
                                 <button class="btn btn-social btn-social-o instagram mr-1">
                                     <i class="fa fa-instagram"></i>
                                 </button>
+                                <a href="https://wa.me/+258866500009" class="btn btn-social rounded text-white whatsapp">
+                                    <i class="fa fa-whatsapp"></i>
+                                </a>
                             </p>
                             <br>
                             <h4 class="footer-title">Boletim de Notícias</h4>
@@ -321,8 +332,10 @@
                                 <p>Não deixe de se inscrever em nossos feeds de notícias,
                                     por favor preencha o formulário abaixo</p>
                                 <div class="mt-3">
-                                    <input type="text" class="form-control mb-2" placeholder="Digite o seu e-mail">
-                                    <button class="btn btn-primary btn-block text-capitalize" type="button">Subscrever
+                                    <input type="text" class="form-control mb-2"
+                                        placeholder="Digite o seu e-mail">
+                                    <button class="btn btn-primary btn-block text-capitalize"
+                                        type="button">Subscrever
                                     </button>
                                 </div>
                             </div>
@@ -342,7 +355,7 @@
                             <a href="https://firsteducation.edu.mz/">FirstTech</a>
                         </span>
                     </div>
-               
+
                 </div>
             </div>
         </div>
@@ -350,14 +363,11 @@
     </footer>
 
     <!-- SCROLL TO TOP -->
-    <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+    <a href="https://wa.me/+258866500009" id="return-to-top"><i class="fa fa-whatsapp"></i></a>
     <!-- END SCROLL TO TOP -->
     <script src="{{ asset('assets/js/index.bundlebd04.js?8918068d71def746395d') }}"></script>
     @livewireScripts
 
 </body>
-
-
-<!-- Mirrored from wallsproperty.netlify.app/homepage-v5.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 11:58:17 GMT -->
 
 </html>

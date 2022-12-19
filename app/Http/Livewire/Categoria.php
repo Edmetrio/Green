@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Models\Categoria as ModelsCategoria;
 use App\Models\Models\Propriedade;
 use App\Models\Models\Tipo;
+use App\Models\Models\Tipoitem;
 use Livewire\Component;
 
 class Categoria extends Component
@@ -20,10 +21,10 @@ class Categoria extends Component
 
     public function render()
     {
-        $this->propriedade = Propriedade::with('categorias','tipos','areas','distritos.provincias','estados','agentes','textos')
+        $this->propriedade = Propriedade::with('categorias','tipoitems','areas','distritos.provincias','estados','agentes','textos')
                                         ->where('categoria_id', $this->IdCategoria)->get();
-        $this->tipos = Tipo::orderBy('created_at', 'desc')->get();
-        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $this->tipos = Tipoitem::orderBy('created_at', 'desc')->get();
+        $tipo = Tipoitem::orderBy('created_at', 'desc')->get();
         $categoria = ModelsCategoria::orderBy('created_at', 'desc')->get();
         return view('livewire.categoria')->layout('layouts.app', compact('categoria','tipo'));
     }
@@ -32,9 +33,9 @@ class Categoria extends Component
     {
         if (!is_null($tipo_id)) {
             $this->Mode = true;
-            $this->propriedades = Propriedade::with('categorias','tipos','areas','distritos','estados','agentes')
+            $this->propriedades = Propriedade::with('categorias','tipoitems','areas','distritos','estados','agentes')
                                                 ->where('categoria_id', $this->IdCategoria)
-                                                ->where('tipo_id', $tipo_id)
+                                                ->where('tipoitem_id', $tipo_id)
                                                 ->get();
         }
     }

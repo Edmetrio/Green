@@ -40,7 +40,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
-                <a class="navbar-brand" href="{{ Route('/')}}">
+                <a class="navbar-brand" href="{{ Route('/') }}">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="">
                 </a>
@@ -51,42 +51,26 @@
                     <ul class="navbar-nav mx-auto ">
                         <li class="nav-item"><a class="nav-link" href="{{ Route('/') }}"> Início </a></li>
 
+                        @if($role->id === Auth::user()->role_id)
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Categoria </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Funcionalidades </a>
                             <ul class="dropdown-menu animate fade-up">
-                                @foreach ($categoria as $c)
-                                    <li><a class="dropdown-item"
-                                            href="{{ Route('categoria', $c->id) }}">{{ $c->nome }}</a>
-                                @endforeach
+                                <li><a class="dropdown-item" href="{{ Route('propriedade') }}"> Propriedade </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('detalhes')}}"> Detalhes de Propriedade </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('foto') }}"> Foto </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('tipo') }}"> Categoria </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('noticia') }}"> Notícia </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('provincia')}}"> Provincia </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('distrito')}}"> Distrito </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('agentes')}}"> Agentes </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('rota')}}"> Rota </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('role')}}"> Role </a></li>
+                                <li><a class="dropdown-item" href="{{ Route('permissao')}}"> Permissão </a></li>
                             </ul>
                         </li>
-
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
-                                Tipo
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                {{-- @foreach ($tipo as $t)
-                                    <li><a class="dropdown-item" href="{{ Route('item', $t->id) }}"> {{ $t->nome }}
-                                        </a>
-                                    </li>
-                                @endforeach --}}
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Staff
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                <li><a class="dropdown-item" href="{{ Route('agente') }}"> Lista </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('contacto') }}"> Contacto </a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ Route('sobre')}}"> Sobre nós </a></li>
+                        @else
+                        
+                        @endif
                     </ul>
 
                     <div class="top-search navigation-shadow">
@@ -153,92 +137,8 @@
     {{ $slot }}
 
 
+
     <footer>
-        <div class="wrapper__footer bg-theme-footer">
-            <div class="container">
-                <div class="row">
-                    <!-- ADDRESS -->
-                    <div class="col-md-4">
-                        <div class="widget__footer">
-                            <figure>
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="" class="logo-footer">
-                            </figure>
-                            <p>
-                                A Green Property Mozambique já é uma marca
-                                reconhecida do mercado nacional pela sua
-                                integridade, domínio do mercado o que resume
-                                na satisfação dos seus clientes
-                            </p>
-
-                            <ul class="list-unstyled mb-0 mt-3">
-                                <li> <b> <i class="fa fa-map-marker"></i></b><span>Rua da Frelimo, nº. 206 - Bairro
-                                        Sommerschield</span> </li>
-                                <li> <b><i class="fa fa-phone-square"></i></b><span>(+258) 86 650 0009</span> </li>
-                                <li> <b><i class="fa fa-phone-square"></i></b><span>(+258) 86 650 0009</span> </li>
-                                {{--                                 <li> <b><i class="fa fa-headphones"></i></b><span>support@realvilla.demo</span> </li>
-                                <li> <b><i class="fa fa-clock-o"></i></b><span>Mon - Sun / 9:00AM - 8:00PM</span> </li> --}}
-                            </ul>
-                        </div>
-
-                    </div>
-                    <!-- END ADDRESS -->
-
-                    <!-- QUICK LINKS -->
-                    {{-- <div class="col-md-4">
-                        <div class="widget__footer">
-                            <h4 class="footer-title">Links Rápidos</h4>
-                            <div class="link__category-two-column">
-                                <ul class="list-unstyled ">
-                                    @foreach($tipo as $t)
-                                    <li class="list-inline-item">
-                                        <a href="{{ Route('item', $t->id)}}">{{$t->nome}}</a>
-                                    </li>
-                                    @endforeach
-                                    <li class="list-inline-item">
-                                        <a href="{{ Route('contacto')}}">Contacto</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="{{ Route('sobre')}}">Sobre nós</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    <div class="col-md-4">
-                        <div class="widget__footer">
-                            <h4 class="footer-title">Siga-nos </h4>
-                            <p class="mb-2">
-                                Siga-nos e fique em contacto para receber as últimas
-                                notícias
-                            </p>
-                            <p>
-                                <button class="btn btn-social btn-social-o facebook mr-1">
-                                    <i class="fa fa-facebook-f"></i>
-                                </button>
-                                <button class="btn btn-social btn-social-o instagram mr-1">
-                                    <i class="fa fa-instagram"></i>
-                                </button>
-                            </p>
-                            <br>
-                            <h4 class="footer-title">Boletim de Notícias</h4>
-                            <!-- Form Newsletter -->
-                            <div class="widget__form-newsletter ">
-                                <p>Não deixe de se inscrever em nossos feeds de notícias,
-                                    por favor preencha o formulário abaixo</p>
-                                <div class="mt-3">
-                                    <input type="text" class="form-control mb-2" placeholder="Digite o seu e-mail">
-                                    <button class="btn btn-primary btn-block text-capitalize" type="button">subscribe
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="bg__footer-bottom-v1">
             <div class="container">
                 <div class="row flex-column-reverse flex-md-row">
@@ -248,7 +148,7 @@
                             <a href="https://firsteducation.edu.mz/">FirstTech</a>
                         </span>
                     </div>
-               
+
                 </div>
             </div>
         </div>
@@ -260,9 +160,13 @@
     <!-- END SCROLL TO TOP -->
     <script src="{{ asset('assets/js/index.bundlebd04.js') }}"></script>
     @livewireScripts
+    <script>
+        window.livewire.on('agenteAdded',()=>{
+            $('#addAgenteModal').modal('hide');
+        })
+    </script>
 </body>
 
 
-<!-- Mirrored from wallsproperty.netlify.app/listing-style-v1.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 11:59:04 GMT -->
 
 </html>

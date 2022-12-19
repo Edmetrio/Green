@@ -99,6 +99,7 @@
                             <div class="form-group">
                                 <strong>Imagem:</strong>
                                 <input type="file" name="icon" class="form-control" placeholder="icon" wire:model="icon">
+                                <div wire:loading wire:target="icon">Uploading...</div>
                                 @if($icon)
                                     <img src="{{$icon->temporaryUrl()}}" style="width: 200px; height: 200px;" />
                                 @endif

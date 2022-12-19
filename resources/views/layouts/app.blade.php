@@ -7,10 +7,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Rethouse - Real Estate HTML Template">
-    <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
-    <meta name="author" content="mardianto - retenvi.com">
+    <meta name="description" content="First Tech">
+    <meta name="keywords" content="First Tech, First Education" />
+    <meta name="author" content="Edmétrio - Samuel">
     <title>Green Propriety Mozambique</title>
+    <link rel="icon" href="{{asset('assets/images/fav.png')}}">    
+
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -23,13 +25,17 @@
     <meta name="twitter:url" content="" />
     <meta name="twitter:card" content="" />
 
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="manifest" href="firsteducation.edu.mz">
     <!-- favicon.ico in the root directory -->
     <link rel="apple-touch-icon" href="icon.png">
     <meta name="theme-color" content="#3454d1">
     <link href="{{ asset('assets/css/stylesbd04.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/font-awesome.min') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {{-- SweetAlert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     @livewireStyles
 </head>
 
@@ -57,6 +63,7 @@
                                 @foreach ($categoria as $c)
                                     <li><a class="dropdown-item"
                                             href="{{ Route('categoria', $c->id) }}">{{ $c->nome }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -152,7 +159,7 @@
     <!-- LISTING LIST -->
     {{ $slot }}
 
-
+    
     <footer>
         <div class="wrapper__footer bg-theme-footer">
             <div class="container">
@@ -219,6 +226,9 @@
                                 <button class="btn btn-social btn-social-o instagram mr-1">
                                     <i class="fa fa-instagram"></i>
                                 </button>
+                                <button class="btn btn-social rounded text-white whatsapp">
+                                    <i class="fa fa-whatsapp"></i>
+                                </button>
                             </p>
                             <br>
                             <h4 class="footer-title">Boletim de Notícias</h4>
@@ -259,7 +269,36 @@
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- END SCROLL TO TOP -->
     <script src="{{ asset('assets/js/index.bundlebd04.js') }}"></script>
+    <script>
+        window.addEventListener('swal:modal', event => {
+            swal({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+            });
+        });
+
+        window.addEventListener('swal:confirm', event => {
+            swal({
+                    title: event.detail.message,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.livewire.emit('remove');
+                    }
+                });
+        });
+    </script>
     @livewireScripts
+    <script>
+        window.livewire.on('provinciaAdd', ()=>{
+            $('#addProvinciaModal').modal('hide');
+        })
+    </script>
 </body>
 
 

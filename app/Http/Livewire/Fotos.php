@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Models\Agente;
 use App\Models\Models\Categoria;
 use App\Models\Models\Foto;
 use App\Models\Models\Propriedade;
+use App\Models\Models\role;
 use App\Models\Models\Tipo;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\File;
@@ -16,15 +19,29 @@ class Fotos extends Component
     public $propriedade_id, $icon, $foto_id, $old_icon, $new_icon;
     use WithFileUploads;
     
+    public function mount()
+    {
+        $this->propriedade = Propriedade::orderBy('created_at', 'desc')->get();
+        $this->pr = Propriedade::with('users.roles')->where('users_id', Auth::user()->id)->first();
+    }
 
     public function render()
     {
-        $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        $tipo = Tipo::orderBy('created_at', 'desc')->get();
         $this->foto = Foto::orderBy('created_at', 'desc')->get();
-        $this->propriedade = Propriedade::with('fotos')->orderBy('created_at', 'desc')->get();
+        $this->propriedades = Propriedade::with('fotos')->where('users_id', Auth::user()->id)->get();
+        $this->propriedadess = Propriedade::with('fotos')->orderBy('created_at', 'desc')->get();
+        /* dd($this->propriedades); */
+
+       /*  $this->pr = Propriedade::with('fotos')->where('users_id', Auth::user()->id)->first();
+        $this->propriedades = Propriedade::with('fotos')->where('users_id', Auth::user()->id)->get(); */
+
+
         /* dd($this->propriedade); */
-        return view('livewire.fotos')->layout('layouts.app', compact('categoria','tipo'));
+        /* $this->propriedade = Agente::with('fotos')->get();
+        dd($this->propriedade); */
+        $role = role::where('nome', 'Dev')->first();
+
+        return view('livewire.fotos')->layout('layouts.appDash', compact('role'));
     }
 
     private function resetInputFields(){

@@ -2,9 +2,11 @@
 
 namespace App\Models\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Support\Facades\Auth;
 
 class Propriedade extends Model
 {
@@ -15,16 +17,16 @@ class Propriedade extends Model
     protected $guarded = [];
 
     protected $table = 'propriedades';
-    protected $fillable = ['categoria_id','tipo_id','area_id','distrito_id','estado_id','nome','descricao','icon','preco','estado','agente_id','endereco','moeda_id'];
+    protected $fillable = ['users_id','categoria_id','tipoitem_id','area_id','distrito_id','estado_id','nome','descricao','icon','preco','estado','agente_id','endereco','moeda_id'];
 
     public function categorias()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
     }
 
-    public function tipos()
+    public function tipoitems()
     {
-        return $this->belongsTo(Tipo::class, 'tipo_id');
+        return $this->belongsTo(Tipoitem::class, 'tipoitem_id');
     }
 
     public function areas()
@@ -60,5 +62,20 @@ class Propriedade extends Model
     public function moedas()
     {
         return $this->belongsTo(Moeda::class, 'moeda_id');
+    }
+
+    public function descricaos()
+    {
+        return $this->belongsToMany(Descricao::class, 'detalhe')->withPivot('nome','id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function detalhes()
+    {
+        return $this->hasMany(Detalhe::class, 'propriedade_id', 'id');
     }
 }

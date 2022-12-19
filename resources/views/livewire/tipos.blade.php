@@ -48,8 +48,6 @@
                             <h3>Sem dados</h3>
                         @endforelse
                     </table>
-
-                    {{-- {!! $propriedade->links() !!} --}}
                 </div>
             </div>
     </section>

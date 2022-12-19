@@ -7,7 +7,7 @@
                         <div class="col-lg-12 cards mt-0">
                             <div class="row">
                                 <div class="col-md-6 col-lg-6">
-                                    <a href="#" class="profile__agents-avatar">
+                                    <a href="{{ Route('agenteitem', $agente->id)}}" class="profile__agents-avatar">
                                         <img src="{{ asset('storage') }}/{{ $agente->icon }}" alt=""
                                             class="img-fluid ">
                                         <div class="total__property-agent">{{$agente->propriedades->count()}} Propriedades</div>
@@ -16,7 +16,7 @@
                                 <div class="col-md-6 col-lg-6 my-auto">
                                     <div class="profile__agents-info">
                                         <h5 class="text-capitalize">
-                                            <a href="#" target="_blank">{{ $agente->nome }}</a>
+                                            <a href="{{ Route('agenteitem', $agente->id)}}" target="_blank">{{ $agente->nome }}</a>
                                         </h5>
                                         <p class="text-capitalize mb-1">{{ $agente->distritos->nome }} -
                                             {{ $agente->distritos->provincias->nome }}</p>
@@ -102,9 +102,9 @@
                                                                         style="background-color: red">
                                                                         {{ $p->estados->nome }}></div>
                                                                 @endif
-                                                                <img src="{{ asset('storage') }}/{{ $p->icon }}"
-                                                                    alt=""
-                                                                    class="img-fluid w100 img-transition">
+                                                                <a href="{{ Route('detalhe', $p->id)}}">
+                                                                <img src="{{ asset('storage') }}/{{ $p->icon }}" alt="" class="img-fluid w100 img-transition" />
+                                                                </a>
                                                                 <div class="info"> </div>
                                                             </a>
                                                         </div>
@@ -113,7 +113,7 @@
                                                         <div class="card__image__body">
 
                                                             <span
-                                                                class="badge badge-primary text-capitalize mb-2">{{ $p->tipos->nome }}</span>
+                                                                class="badge badge-primary text-capitalize mb-2">{{ $p->tipoitems->nome }}</span>
                                                             <h6>
                                                                 <a href="#">{{ $p->nome }}</a>
                                                             </h6>

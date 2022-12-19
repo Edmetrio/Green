@@ -16,7 +16,7 @@ class CreateDetalhesTable extends Migration
         Schema::create('detalhe', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('propriedade_id')->nullable();
-            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedades')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('descricao_id')->nullable();
             $table->foreign('descricao_id')->references('id')->on('descricao')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome')->nullable();

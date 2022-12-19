@@ -10,7 +10,7 @@
             <a href="{{ Route('detalhe', $p->id) }}">
                 <img src="{{ asset('storage') }}/{{ $p->icon }}" alt="" class="img-fluid w100 img-transition">
             </a>
-            <div class="info">{{ $p->tipos->nome }}</div>
+            <div class="info">{{ $p->tipoitems->nome }}</div>
 
         </div>
         <div class="card__image-body">

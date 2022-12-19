@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Models\role;
 use App\Models\Models\Tipo;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
@@ -15,8 +16,10 @@ class Tipos extends Component
 
     public function render()
     {
-        $this->tipo = Tipo::orderBy('created_at', 'desc')->get();
-        return view('livewire.tipos')->layout('layouts.appDash');
+        $this->tipo = Tipo::with('tipoitems')->orderBy('created_at', 'desc')->get();
+        /* dd($this->tipo); */
+        $role = role::where('nome', 'Dev')->first();
+        return view('livewire.tipos')->layout('layouts.appDash', compact('role'));
     }
 
     private function resetInputFields(){
@@ -97,7 +100,17 @@ class Tipos extends Component
         $this->resetInputFields();
     }
 
-    
+    public function delete($id)
+    {
+        $tipo = Tipo::findOrFail($id);
+        $destination = public_path("storage\\". $tipo->icon);
+        if(File::exists($destination))
+        {
+            File::delete($destination);
+        }
+        Tipo::find($id)->delete();
+        session()->flash('message', 'Categoria deletado com sucesso.');
+    }
 
     public function switch($id)
     {

@@ -8,6 +8,7 @@ use App\Models\Models\Distrito;
 use App\Models\Models\Propriedade;
 use App\Models\Models\Provincia;
 use App\Models\Models\Tipo;
+use App\Models\Models\Tipoitem;
 use Livewire\Component;
 
 class Categorias extends Component
@@ -36,9 +37,9 @@ class Categorias extends Component
     public function render()
     {
         $propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados','agentes')->orderBy('created_at', 'desc')->paginate(5);
-        $this->tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $this->tipo = Tipoitem::orderBy('created_at', 'desc')->get();
         $this->area = Area::orderBy('created_at', 'desc')->get();
-        $tipo = Tipo::orderBy('created_at', 'desc')->get();
+        $tipo = Tipoitem::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
         return view('livewire.categorias', compact('propriedade'))->layout('layouts.app', compact('categoria','tipo'));
     }
@@ -58,7 +59,7 @@ class Categorias extends Component
         if(!is_null($tipo_id))
         {
             $this->tipoB = $tipo_id;
-            $this->tipos = Propriedade::where('tipo_id', $tipo_id)->where('categoria_id', $this->categoriaB)->get();
+            $this->tipos = Propriedade::where('tipoitem_id', $tipo_id)->where('categoria_id', $this->categoriaB)->get();
             $this->ModeTipo = true;
             $this->ModeCategoria = false;
             $this->ModeIndex = false;

@@ -15,6 +15,10 @@ class CreateAgentesTable extends Migration
     {
         Schema::create('agente', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('users_id')->nullable();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('cargo_id')->nullable();
+            $table->foreign('cargo_id')->references('id')->on('cargo')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('distrito_id')->nullable();
             $table->foreign('distrito_id')->references('id')->on('distrito')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('nome')->unique();

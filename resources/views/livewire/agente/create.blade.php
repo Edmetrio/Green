@@ -1,19 +1,3 @@
-<div class="breadcrumbs-area position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-content position-relative section-content">
-                    <h3 class="title-3"></h3>
-                    <ul>
-                        <li><a href="">Início</a></li>
-                        <li>Agente</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="shop-main-area">
     <div class="container container-default custom-area">
         <div class="row">
@@ -26,9 +10,6 @@
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb" style="margin: 2%">
-                        <div class="pull-left">
-                            <h2>Adicionar Tipo</h2>
-                        </div>
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('/') }}"> Voltar</a>
                         </div>
@@ -59,6 +40,22 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-10">
+                            <div class="form-group">
+                                <strong>Cargo:</strong>
+                                <select class="form-control" wire:model="cargo_id">
+                                    <option>Seleccione o Cargo</option>
+                                    @foreach ($cargo as $r)
+                                        <option value="{{ $r->id }}">{{ $r->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 mt-4">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAgenteModal">
+                                Adição
+                            </button>
+                        </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Nome:</strong>
@@ -76,8 +73,15 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>E-mail:</strong>
-                                <input type="text" name="nome" class="form-control" placeholder="E-mail" wire:model="email">
+                                <input type="email" name="nome" class="form-control" placeholder="E-mail" wire:model="email">
                                 @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Palavra-passe:</strong>
+                                <input type="password" name="password" class="form-control" placeholder="Palavra-passe" wire:model="password">
+                                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

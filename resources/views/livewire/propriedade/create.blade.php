@@ -1,19 +1,3 @@
-<div class="breadcrumbs-area position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-content position-relative section-content">
-                    <h3 class="title-3"></h3>
-                    <ul>
-                        <li><a href="">Início</a></li>
-                        <li>Produto</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="shop-main-area">
     <div class="container container-default custom-area">
         <div class="row">
@@ -23,17 +7,6 @@
                         {{ session('message') }}
                     </div>
                 @endif
-
-                <div class="row">
-                    <div class="col-lg-12 margin-tb" style="margin: 2%">
-                        <div class="pull-left">
-                            <h2>Adicionar Produtos</h2>
-                        </div>
-                        <div class="pull-right">
-                            <a class="btn btn-primary" href=""> Voltar</a>
-                        </div>
-                    </div>
-                </div>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -62,25 +35,27 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Tipo:</strong>
-                                <select class="form-control" wire:model="tipo_id">
-                                    <option>Seleccione o tipo</option>
+                                <select class="form-control" wire:model="selectedTipo">
+                                    <option>Seleccione a Tipo</option>
                                     @foreach ($tipo as $r)
                                         <option value="{{ $r->id }}">{{ $r->nome }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        @if (!is_null($selectedTipo))
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Área:</strong>
-                                <select class="form-control" wire:model="area_id">
-                                    <option>Seleccione a Área</option>
-                                    @foreach ($area as $r)
-                                        <option value="{{ $r->id }}">{{ $r->tamanho }}</option>
+                                <strong>Tipo de Item:</strong>
+                                <select class="form-control" wire:model="tipoitem_id">
+                                    <option>Seleccione o Tipo de Item</option>
+                                    @foreach ($tipoitem as $r)
+                                        <option value="{{ $r->id }}">{{ $r->nome }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        @endif
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Distrito:</strong>
@@ -103,6 +78,7 @@
                                 </select>
                             </div>
                         </div>
+                        @if($user->users->roles->nome === 'Dev')
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Agente:</strong>
@@ -114,6 +90,7 @@
                                 </select>
                             </div>
                         </div>
+                        @endif
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Nome:</strong>
@@ -166,7 +143,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn text-white btn-info btn-sm" wire:click.prevent="add({{$i}})">Add</button>
+                            <button class="btn text-white btn-info btn-sm" wire:click.prevent="add({{$i}})">Adicionar</button>
                         </div>
                         @foreach($inputs as $key => $value)
                         <div class="col-xs-10 col-sm-12 col-md-12">

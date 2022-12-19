@@ -15,10 +15,14 @@ class CreatePropriedadesTable extends Migration
     {
         Schema::create('propriedades', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('users_id')->nullable();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categoria')->onDelete('cascade')->onUpdate('cascade');
-            $table->uuid('tipo_id')->nullable();
-            $table->foreign('tipo_id')->references('id')->on('tipo')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('tipoitem_id')->nullable();
+            $table->foreign('tipoitem_id')->references('id')->on('tipoitem')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('moeda_id')->nullable();
+            $table->foreign('moeda_id')->references('id')->on('moeda')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('area_id')->nullable();
             $table->foreign('area_id')->references('id')->on('area')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('distrito_id')->nullable();

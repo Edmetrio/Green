@@ -24,17 +24,6 @@
                     </div>
                 @endif
 
-                <div class="row">
-                    <div class="col-lg-12 margin-tb" style="margin: 2%">
-                        <div class="pull-left">
-                            <h2>Adicionar Produtos</h2>
-                        </div>
-                        <div class="pull-right">
-                            <a class="btn btn-primary" href=""> Voltar</a>
-                        </div>
-                    </div>
-                </div>
-
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>

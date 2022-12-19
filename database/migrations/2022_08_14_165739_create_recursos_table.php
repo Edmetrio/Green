@@ -16,7 +16,7 @@ class CreateRecursosTable extends Migration
         Schema::create('recurso', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('propriedade_id')->nullable();
-            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedades')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('nome_id')->nullable();
             $table->foreign('nome_id')->references('id')->on('nome')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome')->nullable();

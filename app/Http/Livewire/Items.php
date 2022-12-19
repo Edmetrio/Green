@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Models\Categoria;
 use App\Models\Models\Propriedade;
 use App\Models\Models\Tipo;
+use App\Models\Models\Tipoitem;
 use Livewire\Component;
 
 class Items extends Component
@@ -16,7 +17,11 @@ class Items extends Component
     public function mount($id)
     {
         $this->Idtipo = $id;
-        $this->propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados')->where('tipo_id', $this->Idtipo)->get();
+        $this->propriedade = Tipoitem::with('propriedades.categorias','propriedades.estados','propriedades.distritos','propriedades.tipoitems')->where('tipo_id', $id)->get();
+        /* dd($this->propriedade); */
+        
+       /*  $this->propriedade = Propriedade::with('categorias','tipos','areas','distritos','estados')->where('tipoitem_id', $tipoitem->id)->get(); */
+        /* dd($this->propriedade); */
     }
 
     public function render()
@@ -29,13 +34,14 @@ class Items extends Component
     
     public function updatedSelectedTipo($categoria_id)
     {
+        dd($this->Idtipo);  
         if (!is_null($categoria_id)) {
             $this->Mode = true;
-            $this->propriedades = Propriedade::with('categorias','tipos','areas','distritos','estados','agentes')
+            $this->propriedades = Propriedade::with('categorias','tipoitems','areas','distritos','estados','agentes')
                                                 ->where('categoria_id', $categoria_id)
-                                                ->where('tipo_id', $this->Idtipo)
+                                                /* ->where('tipoitem_id', $this->Idtipo) */
                                                 ->get();
-           /*  dd($this->propriedades); */
+            /* dd($this->propriedades); */
         }
     }
 }

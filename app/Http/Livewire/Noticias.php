@@ -26,7 +26,7 @@ class Noticias extends Component
     public function render()
     {
         $this->noticia = Noticia::with('categorias','tipos','destaques')->orderBy('created_at', 'desc')->get();
-        return view('livewire.noticias');
+        return view('livewire.noticias')->layout('layouts.appDash');
     }
 
     private function resetInputFields(){

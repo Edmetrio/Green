@@ -10,19 +10,27 @@ use App\Models\Models\Estado;
 use App\Models\Models\Foto;
 use App\Models\Models\Moeda;
 use App\Models\Models\Propriedade;
+use App\Models\Models\role;
 use App\Models\Models\Texto;
 use App\Models\Models\Tipo;
+use App\Models\Models\Tipoitem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Propriedades extends Component
 {
+    use WithPagination;
     public $updateMode = false;
     use WithFileUploads;
-    public $categoria_id, $tipo_id, $area_id, $distrito_id, $estado_id, $nome, $descricao, $icon, $preco, $propriedade_id, $agente_id, $endereco, $texto, $new_icon, $old_icon, $moeda_id;
+    public $categoria_id, $tipo_id, $area_id, $distrito_id, $estado_id, $nome, $descricao, $icon, $preco, $propriedade_id, $agente_id, $endereco, $texto, $new_icon, $old_icon, $moeda_id, $tipoitem_id;
     public $inputs = [];
     public $i = 1;
+
+    public $selectedTipo = Null;
 
     public function add($i)
     {
@@ -50,20 +58,32 @@ class Propriedades extends Component
         $this->estado = Estado::orderBy('created_at', 'desc')->get();
         $this->agente = Agente::orderBy('created_at', 'desc')->get();
         $this->moeda = Moeda::orderBy('created_at', 'desc')->get();
+        $this->tipoitem = collect();
     }
 
     public function render()
     {
         $tipo = Tipo::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        $propriedade = Propriedade::with('estados')->orderBy('created_at', 'desc')->get();
-        return view('livewire.propriedades', compact('propriedade'))->layout('layouts.app', compact('categoria','tipo'));
+        $propriedade = Agente::where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        /* dd($propriedade); */
+        $this->propriedades = Agente::with('propriedades')->orderBy('created_at', 'desc')->get();
+        $this->pr = Propriedade::with('agentes.users.roles')->where('users_id', Auth::user()->id)->first();
+        $this->user = Agente::with('users.roles')->where('users_id', Auth::user()->id)->first();
+        /* dd($this->user->users->roles->nome); */
+        
+        $devs = Propriedade::orderBy('created_at', 'desc')->paginate(2);
+        $users = Propriedade::where('users_id', Auth::user()->id)->paginate(1);
+
+        $role = role::where('nome', 'Dev')->first();
+        return view('livewire.propriedades', compact('propriedade','users','devs'))->layout('layouts.appDash', compact('role'));
     }
 
     private function resetInputFields(){
         $this->categoria_id = '';
         $this->moeda_id = '';
         $this->tipo_id= '';
+        $this->tipoitem_id = '';
         $this->area_id = '';
         $this->distrito_id = '';
         $this->estado_id = '';
@@ -84,11 +104,10 @@ class Propriedades extends Component
         $validatedDate = $this->validate([
             'nome' => 'required',
             'categoria_id' => 'required',
-            'tipo_id' => 'required',
-            'agente_id' => 'required',
+            'tipoitem_id' => 'required',
+            /* 'agente_id' => 'required', */
             'endereco' => 'required',
             'descricao' => 'required',
-            'area_id' => 'required',
             'distrito_id' => 'required',
             'estado_id' => 'required',
             'preco' => 'required',
@@ -112,7 +131,15 @@ class Propriedades extends Component
             $input['icon'] = '';
         }
      
-
+        if($this->user->users->roles->nome === 'User')
+        {
+            $input['agente_id'] = $this->user->id;
+            $input['users_id'] = Auth::user()->id;
+        } elseif($this->user->users->roles->nome === 'Dev') {
+            $input['agente_id'] = $this->agente_id;
+            $user = Agente::findOrFail($this->agente_id);
+            $input['users_id'] = $user->users_id;
+        }
         $p = Propriedade::create($input);
      
         foreach ($this->texto as $key => $value) {
@@ -200,6 +227,13 @@ class Propriedades extends Component
         }
         Propriedade::find($id)->delete();
         session()->flash('message', 'Propriedade deletado com sucesso.');
+    }
+
+    public function updatedSelectedTipo($tipo_id)
+    {
+        if (!is_null($tipo_id)) {
+            $this->tipoitem = Tipoitem::where('tipo_id', $tipo_id)->get();
+        }
     }
 
 }

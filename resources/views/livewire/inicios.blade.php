@@ -7,9 +7,17 @@
                         <div class="form-group">
                             <select wire:model="selectedCategorias" class="form-control">
                                 <option data-display="Categoria">Categoria</option>
-                                @foreach ($categoria as $c)
+                                @forelse ($categoria as $c)
                                     <option value="{{ $c->id }}">{{ $c->nome }}</option>
-                                @endforeach
+                                @empty
+                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                        <div class="title__head">
+                                            <h2 class="text-center text-capitalize">
+                                                Sem Resultados
+                                            </h2>
+                                        </div>
+                                    </div>
+                                @endforelse
                             </select>
                         </div>
                     </div>
@@ -17,7 +25,7 @@
                         <div class="form-group">
                             <select wire:model="selectedTipos" class="form-control">
                                 <option data-display="Tipo">Tipo</option>
-                                @foreach ($tipo as $t)
+                                @foreach ($tipoitem as $t)
                                     <option value="{{ $t->id }}">{{ $t->nome }}</option>
                                 @endforeach
                             </select>
@@ -25,7 +33,7 @@
                     </div>
                     <div class="col-6 col-lg-3 col-md-3">
                         <select wire:model="selectedProvincia" class="form-control" id="exampleFormControlSelect1">
-                            <option data-display="Tipo">Seleccione o Tipo</option>
+                            <option data-display="Tipo">Seleccione a Província</option>
                             @foreach ($provincias as $p)
                                 <option value="{{ $p->id }}">{{ $p->nome }}</option>
                             @endforeach
@@ -64,7 +72,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="featured__property-carousel owl-carousel owl-theme">
-                            @foreach ($tipo as $p)
+                            @forelse ($tipo as $p)
                                 <a href="{{ Route('item', $p->id) }}">
                                     <div class="card__image-hover-style-v3">
                                         <div class="card__image-hover-style-v3-thumb h-230">
@@ -78,7 +86,15 @@
                                         </div>
                                     </div>
                                 </a>
-                            @endforeach
+                            @empty
+                                <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                    <div class="title__head">
+                                        <h2 class="text-center text-capitalize">
+                                            Sem Resultados
+                                        </h2>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -101,15 +117,18 @@
                     </div>
                 </div>
                 <div class="featured__property-carousel owl-carousel owl-theme">
-                    @foreach ($propriedade as $p)
+                    @forelse ($propriedade as $p)
                         <div class="item">
                             <!-- ONE -->
                             <div class="card__image card__box">
                                 <div class="card__image-header h-250">
                                     @if ($p->estados->nome === 'Disponível')
                                         <div class="ribbon text-uppercase">{{ $p->estados->nome }}</div>
-                                    @else
+                                    @elseif($p->estados->nome === 'Indisponível')
                                         <div class="ribbon text-uppercase" style="background-color: red">
+                                            {{ $p->estados->nome }}></div>
+                                    @elseif($p->estados->nome === 'Reservado')
+                                        <div class="ribbon text-uppercase" style="background-color: orange">
                                             {{ $p->estados->nome }}></div>
                                     @endif
                                     <a href="{{ Route('detalhe', $p->id) }}">
@@ -119,11 +138,12 @@
                                     <div class="info"> {{ $p->categorias->nome }}</div>
                                 </div>
                                 <div class="card__image-body">
-                                    <span class="badge badge-primary text-capitalize mb-2">{{ $p->tipos->nome }}</span>
+                                    <span class="badge badge-primary text-capitalize mb-2">{{ $p->tipoitems->tipos->nome }}</span>
                                     <h6 style="max-width: 45ch;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
-                                    white-space: nowrap;" class="text-capitalize">
+                                    white-space: nowrap;"
+                                        class="text-capitalize">
                                         <a href="{{ Route('detalhe', $p->id) }}">
                                             {{ $p->nome }}
                                         </a>
@@ -132,7 +152,8 @@
                                     <p style="max-width: 45ch;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
-                                    white-space: nowrap;" class="text-capitalize">
+                                    white-space: nowrap;"
+                                        class="text-capitalize">
                                         <i class="fa fa-map-marker"></i>
                                         Av. Salvador Allende, nº. 42, {{ $p->distritos->nome }}
                                     </p>
@@ -154,14 +175,23 @@
                                     <ul class="list-inline my-auto ml-auto">
                                         <li class="list-inline-item ">
 
-                                            <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
+                                            <h6>{{ number_format($p->preco, 2, ',', '.') }} {{ $p->moedas->nome }}
+                                            </h6>
                                         </li>
 
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                            <div class="title__head">
+                                <h2 class="text-center text-capitalize">
+                                    Sem Resultados
+                                </h2>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -194,14 +224,18 @@
                     <div class="container">
                         <div class="row">
                             @if ($Mode === false)
-                                @foreach ($propriedade as $p)
+                                @forelse ($propriedade as $p)
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card__image card__box-v1">
                                             <div class="card__image-header h-250">
                                                 @if ($p->estados->nome === 'Disponível')
                                                     <div class="ribbon text-uppercase">{{ $p->estados->nome }}</div>
-                                                @else
+                                                @elseif($p->estados->nome === 'Indisponível')
                                                     <div class="ribbon text-uppercase" style="background-color: red">
+                                                        {{ $p->estados->nome }}></div>
+                                                @elseif($p->estados->nome === 'Reservado')
+                                                    <div class="ribbon text-uppercase"
+                                                        style="background-color: orange">
                                                         {{ $p->estados->nome }}></div>
                                                 @endif
                                                 <a href="{{ Route('detalhe', $p->id) }}">
@@ -212,11 +246,12 @@
                                             </div>
                                             <div class="card__image-body">
                                                 <span
-                                                    class="badge badge-primary text-capitalize mb-2">{{ $p->tipos->nome }}</span>
+                                                    class="badge badge-primary text-capitalize mb-2">{{ $p->tipoitems->tipos->nome }}</span>
                                                 <h6 style="max-width: 45ch;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
-                                    white-space: nowrap;" class="text-capitalize">
+                                    white-space: nowrap;"
+                                                    class="text-capitalize">
                                                     <a href="{{ Route('detalhe', $p->id) }}">
                                                         {{ $p->nome }}
                                                     </a>
@@ -237,36 +272,50 @@
                                                 </figure>
                                                 <ul class="list-inline my-auto">
                                                     <li class="list-inline-item ">
-                                                        <a href="{{ Route('agenteitem', $p->agentes->id)}}">
+                                                        <a href="{{ Route('agenteitem', $p->agentes->id) }}">
                                                             {{ $p->agentes->nome }}
                                                         </a>
                                                     </li>
                                                 </ul>
                                                 <ul class="list-inline my-auto ml-auto">
                                                     <li class="list-inline-item">
-                                                        <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
+                                                        <h6>{{ number_format($p->preco, 2, ',', '.') }}
+                                                            {{ $p->moedas->nome }}</h6>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                        <div class="title__head">
+                                            <h2 class="text-center text-capitalize">
+                                                Sem Resultados
+                                            </h2>
+                                        </div>
+                                    </div>
+                                @endforelse
                             @else
-                                @foreach ($propriedades as $p)
+                                @forelse ($propriedades as $r)
+                                    @foreach($r->propriedades as $p)
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card__image card__box-v1">
                                             <div class="card__image-header h-250">
                                                 @if ($p->estados->nome === 'Disponível')
                                                     <div class="ribbon text-uppercase">{{ $p->estados->nome }}</div>
-                                                @else
+                                                @elseif($p->estados->nome === 'Indisponível')
                                                     <div class="ribbon text-uppercase" style="background-color: red">
+                                                        {{ $p->estados->nome }}></div>
+                                                @elseif($p->estados->nome === 'Reservado')
+                                                    <div class="ribbon text-uppercase"
+                                                        style="background-color: orange">
                                                         {{ $p->estados->nome }}></div>
                                                 @endif
                                                 <a href="{{ Route('detalhe', $p->id) }}">
                                                     <img src="{{ asset('storage') }}/{{ $p->icon }}"
                                                         alt="" class="img-fluid w100 img-transition">
                                                 </a>
-                                                <div class="info">{{ $p->tipos->nome }}</div>
+                                                <div class="info">{{ $p->tipoitems->nome }}</div>
                                             </div>
                                             <div class="card__image-body">
                                                 <span class="badge badge-primary text-capitalize mb-2">
@@ -303,14 +352,24 @@
                                                 </ul>
                                                 <ul class="list-inline my-auto ml-auto">
                                                     <li class="list-inline-item">
-                                                        <h6>{{ number_format($p->preco, 2, ',','.')}} {{$p->moedas->nome}}</h6>
+                                                        <h6>{{ number_format($p->preco, 2, ',', '.') }}
+                                                            {{ $p->moedas->nome }}</h6>
                                                     </li>
 
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                    @endforeach
+                                @empty
+                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                        <div class="title__head">
+                                            <h2 class="text-center text-capitalize">
+                                                Sem Resultados
+                                            </h2>
+                                        </div>
+                                    </div>
+                                @endforelse
                             @endif
                         </div>
                     </div>
@@ -371,8 +430,8 @@
                                     </ul>
                                     <ul class="list-inline my-auto ml-auto">
                                         <li class="list-inline-item ">
-                                            <a href="{{ Route('noticiaitem', $n->id)}}" class="btn btn-sm btn-primary "><small
-                                                    class="text-white ">Ler Mais<i
+                                            <a href="{{ Route('noticiaitem', $n->id) }}"
+                                                class="btn btn-sm btn-primary "><small class="text-white ">Ler Mais<i
                                                         class="fa fa-angle-right ml-1"></i></small></a>
                                         </li>
 
@@ -392,21 +451,45 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="tabs__custom-v2 ">>
+                                <div class="tabs__custom-v2 ">
                                     <div class="container">
                                         <div class="row">
                                             @if ($ModeCategorias === true)
-                                                @foreach ($categorias as $p)
+                                                @forelse ($categorias as $p)
                                                     @include('livewire.inicio.filtro')
-                                                @endforeach
+                                                @empty
+                                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                                        <div class="title__head">
+                                                            <h2 class="text-center text-capitalize">
+                                                                Sem Resultados
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                @endforelse
                                             @elseif($ModeTipos === true)
-                                                @foreach ($tipos as $p)
+                                                @forelse ($tipos as $p)
                                                     @include('livewire.inicio.filtro')
-                                                @endforeach
+                                                    @empty
+                                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                                        <div class="title__head">
+                                                            <h2 class="text-center text-capitalize">
+                                                                Sem Resultados
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                @endforelse
                                             @elseif($ModeDistritos === true)
-                                                @foreach ($dt as $p)
+                                                @forelse ($dt as $p)
                                                     @include('livewire.inicio.filtro')
-                                                @endforeach
+                                                @empty
+                                                    <div class="col-md-8 col-lg-6 mx-auto" style="margin-top: 6%">
+                                                        <div class="title__head">
+                                                            <h2 class="text-center text-capitalize">
+                                                                Sem Resultados
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                @endforelse
                                             @endif
                                         </div>
                                     </div>
